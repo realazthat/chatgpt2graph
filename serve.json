@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/chatgpt2graph/**", "destination": "/index.html" }
+  ]
+}
