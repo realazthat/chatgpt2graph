@@ -7,14 +7,16 @@
     "start": "parcel serve src/index.html --public-url '/chatgpt2graph/' --no-cache --dist-dir dist/coverator",
     "serve": "serve dist/",
     "build": "parcel build src/index.html --public-url '/chatgpt2graph/' --no-cache --dist-dir dist/coverator",
-    "format:js": "semistandard --fix --ignore 'dist/*'",
+    "format:js": "semistandard --fix --ignore 'dist/*' --ignore .cache --ignore .git --ignore node_modules",
     "format:md": "prettier --write **/*.md",
     "format": "npm run format:js && npm run format:md",
+    "genversion": "genversion --esm lib/version.js",
     "deploy": "gh-pages -d dist/coverator -b gh-pages",
     "flow": "flow",
     "flow:stop": "flow stop",
     "flow:check": "flow check"
   },
+  "type": "module",
   "author": "realazthat@gmail.com",
   "license": "MIT",
   "devDependencies": {
@@ -22,6 +24,8 @@
     "@babel/plugin-transform-flow-strip-types": "^7.23.3",
     "@parcel/babel-plugin-transform-runtime": "^2.11.0",
     "flow-bin": "^0.228.0",
+    "flow-typed": "^4.0.0",
+    "genversion": "^3.2.0",
     "gh-pages": "^6.1.1",
     "json-schema-to-typescript": "^15.0.1",
     "parcel": "^2.11.0",
@@ -30,6 +34,9 @@
     "semistandard": "^17.0.0"
   },
   "dependencies": {
+    "d3": "^7.9.0",
+    "date-fns": "^3.6.0",
+    "jsdom": "^25.0.0",
     "serve": "^14.2.1"
   },
   "babel": {
