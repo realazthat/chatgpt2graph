@@ -5,22 +5,17 @@ type YearWeekStr = string;
 type GraphData = Map<YearWeek, number>;
 
 */
-
-// https://github.com/parcel-bundler/parcel/issues/1762#issuecomment-763720624
-// https://github.com/parcel-bundler/parcel/issues/1762#issuecomment-1154349769
-import 'regenerator-runtime/runtime.js';
 import StreamJSON from 'stream-json';
 import fs from 'fs';
-import path from 'path';
-import StreamArrayPKG from 'stream-json/streamers/StreamArray.js';
+import StreamArray from 'stream-json/streamers/StreamArray.js';
 import * as dateFns from 'date-fns';
 // $FlowFixMe - Flow doesn't recognize `once` export correctly
-import { once } from 'events';
+// import { once } from 'events';
 import jsdom from 'jsdom';
 
-import { GraphInfo, DrawGraphToSVG } from './graph.js';
+import { GraphInfo, GraphStyle, DrawGraphToSVG } from './graph.js';
 const { Parser } = StreamJSON;
-const { streamArray } = StreamArrayPKG;
+const { streamArray } = StreamArray;
 const { JSDOM } = jsdom;
 
 function _Get (map /*: Map<YearWeekStr, number> */, key /*: YearWeekStr */) /*: number */ {
@@ -57,6 +52,7 @@ function _FromYearWeekStr (yearWeekStr /*: string */) /*: Date */ {
 
 class _GraphsHelper {
   /*::
+  url: string|null;
   plots: Array<GraphInfo>;
   */
   constructor () {
@@ -67,30 +63,27 @@ class _GraphsHelper {
     this.plots.push(new GraphInfo({ name, x, y, ax }));
   }
 
-  async Draw ({ graphPath }/*: {graphPath: string} */) {
-    // Draw the graph
-    const margin = { top: 20, right: 80, bottom: 30, left: 50 };
-    const wh = { width: 960, height: 500 };
+  async Draw ({ style } /*: {style: GraphStyle} */) /*: Promise<string> */ {
+    const { margin, wh, opaque } = style;
     const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
     const svg = dom.window.document.createElementNS('http://www.w3.org/2000/svg', 'svg');
     svg.setAttribute('width', wh.width + margin.left + margin.right);
     svg.setAttribute('height', wh.height + margin.top + margin.bottom);
+    if (opaque) {
+      svg.style.backgroundColor = 'white';
+    }
 
     // Append the SVG element to the body
     dom.window.document.body.appendChild(svg);
     const drawer = new DrawGraphToSVG();
 
-    drawer.Draw({ svg, margin, wh, graphs: this.plots });
+    drawer.Draw({ svg, graphs: this.plots, style });
     let svgOutput = dom.window.document.body.innerHTML;
     svgOutput = svgOutput.replace(/<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
     svgOutput = `<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 ${svgOutput}`;
-    // write it out
-    // create the parent directory if it doesn't exist
-    const graphDir = path.dirname(graphPath);
-    await fs.promises.mkdir(graphDir, { recursive: true });
-    await fs.promises.writeFile(graphPath, svgOutput);
+    return svgOutput;
   }
 }
 
@@ -101,61 +94,6 @@ function _SortByYearWeek (list /*: Array<YearWeekStr> */) /*: Array<YearWeekStr>
     return parseInt(aYear) - parseInt(bYear) || parseInt(aWeek) - parseInt(bWeek);
   };
   return list.sort(compareFn);
-}
-
-async function DrawGraph ({ graphPath, week2Convs, week2Frusts, week2FrustConvs }/*: {graphPath: string, week2Convs: Map<YearWeekStr, number>, week2Frusts: Map<YearWeekStr, number>, week2FrustConvs: Map<YearWeekStr, number>} */) {
-  const graphs_ = new _GraphsHelper();
-  /// /////////////////////////////////////////////////////////////////////////
-  let xYW /*: Array<YearWeekStr> */ = _SortByYearWeek(Array.from(week2Convs.keys()));
-  let x /*: Array<Date> */= xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
-  let y /*: Array<number> */= xYW.map(yw => _Get(week2Convs, yw));
-  await graphs_.AddPlot({ name: 'Conversations Per Week', x, y, ax: 'y1' });
-  /// /////////////////////////////////////////////////////////////////////////
-  // frusts per week
-  xYW = _SortByYearWeek(Array.from(week2Convs.keys()));
-  x = xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
-  y = xYW.map(yw => _Get(week2Frusts, yw));
-  await graphs_.AddPlot({ name: 'Frustration Per Week', x, y, ax: 'y1' });
-  /// /////////////////////////////////////////////////////////////////////////
-  // frust conversations per week
-  xYW = _SortByYearWeek(Array.from(week2FrustConvs.keys()));
-  x = xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
-  y = xYW.map(yw => _Get(week2FrustConvs, yw));
-  await graphs_.AddPlot({
-    name: 'Frustrated Conversations Per Week',
-    x,
-    y,
-    ax: 'y1'
-  });
-
-  /// /////////////////////////////////////////////////////////////////////////
-  // frusts per conversation
-  xYW = _SortByYearWeek(Array.from(week2Convs.keys()));
-  xYW = xYW.filter(yw => _Get(week2Convs, yw) > 0);
-  x = xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
-  y = xYW.map(yw => _Get(week2Frusts, yw) / _Get(week2Convs, yw));
-  await graphs_.AddPlot({
-    name: 'Frustration Per Conversation Per Week',
-    x,
-    y,
-    ax: 'y2'
-  });
-  /// /////////////////////////////////////////////////////////////////////////
-  // frustrated conversations per conversation
-  xYW = _SortByYearWeek(Array.from(week2Convs.keys()));
-  xYW = xYW.filter(yw => _Get(week2Convs, yw) > 0);
-  x = xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
-  y = xYW.map(yw => _Get(week2FrustConvs, yw) / _Get(week2Convs, yw));
-  await graphs_.AddPlot(
-    {
-      name: 'Frustrated Conversations Per Conversation Per Week',
-      x,
-      y,
-      ax: 'y2'
-    });
-  /// /////////////////////////////////////////////////////////////////////////
-
-  await graphs_.Draw({ graphPath });
 }
 
 function _CountWords ({ conv, words }/*: {conv: any, words: Array<string>} */) /*: number */ {
@@ -190,27 +128,149 @@ function _CountWords ({ conv, words }/*: {conv: any, words: Array<string>} */) /
   return counter;
 }
 
-async function MakeGraph ({ words, ChatGPTExportDumpPath }/*: {words: Array<string>, ChatGPTExportDumpPath: string} */) {
-  const ConversationJSONPath = path.join(ChatGPTExportDumpPath, 'conversations.json');
-  const totalSize = fs.statSync(ConversationJSONPath).size;
-  let processedSize = 0;
+class ConversationIteratorInterface {
+  async * Next () /*: AsyncGenerator<any, void, void> */ {
+    throw new Error('Unimplemented');
+  }
 
-  const pipeline = fs.createReadStream(ConversationJSONPath)
-    .on('data', chunk => {
-      processedSize += chunk.length;
-      const progress = (processedSize / totalSize) * 100;
-      console.log(`Progress: ${progress.toFixed(2)}%`);
-    })
-    .pipe(new Parser())
-    .pipe(streamArray());
+  Progress () /*: number */ {
+    throw new Error('Unimplemented');
+  }
+}
 
+class FileConversationIterator extends ConversationIteratorInterface {
+  /*::
+  ConversationJSONPath: string;
+  processedSize: number;
+  totalSize: number;
+  pipeline: StreamArray;
+  */
+  constructor ({ ConversationJSONPath } /*: {ConversationJSONPath: string} */) {
+    super();
+    this.ConversationJSONPath = ConversationJSONPath;
+    this.processedSize = 0;
+    this.totalSize = 0;
+    const self = this;
+    this.pipeline = fs.createReadStream(this.ConversationJSONPath)
+      .on('data', async chunk => {
+        self.processedSize += chunk.length;
+        if (self.totalSize === 0) {
+          self.totalSize = (await fs.promises.stat(self.ConversationJSONPath)).size;
+        }
+      })
+      .pipe(new Parser())
+      .pipe(streamArray());
+  }
+
+  async * Next () /*: AsyncGenerator<any, void, void> */ {
+    for await (const { value: conv } of this.pipeline) {
+      yield conv;
+    }
+    // TODO: This kills the program for some reason.
+    // await once(this.pipeline, 'end');
+  }
+
+  Progress () /*: number */ {
+    return (this.processedSize / this.totalSize);
+  }
+}
+
+class GraphOutputInterface {
+  async SVG ({ style } /*: {style: GraphStyle} */)/*: Promise<string> */ {
+    throw new Error('Unimplemented');
+  }
+}
+
+class GraphOutput extends GraphOutputInterface {
+  /*::
+  week2Convs: Map<YearWeekStr, number>;
+  week2Frusts: Map<YearWeekStr, number>;
+  week2FrustConvs: Map<YearWeekStr, number>;
+  */
+  /*::*/
+  constructor ({ week2Convs, week2Frusts, week2FrustConvs }/*: {week2Convs: Map<YearWeekStr, number>, week2Frusts: Map<YearWeekStr, number>, week2FrustConvs: Map<YearWeekStr, number>} */) {
+    super();
+    this.week2Convs = week2Convs;
+    this.week2Frusts = week2Frusts;
+    this.week2FrustConvs = week2FrustConvs;
+  }
+
+  async SVG ({ style } /*: {style: GraphStyle} */)/*: Promise<string> */ {
+    const graphs_ = new _GraphsHelper();
+    /// /////////////////////////////////////////////////////////////////////////
+    let xYW /*: Array<YearWeekStr> */ = _SortByYearWeek(Array.from(this.week2Convs.keys()));
+    let x /*: Array<Date> */= xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
+    let y /*: Array<number> */= xYW.map(yw => _Get(this.week2Convs, yw));
+    await graphs_.AddPlot({ name: 'Conversations Per Week', x, y, ax: 'y1' });
+    /// /////////////////////////////////////////////////////////////////////////
+    // frusts per week
+    xYW = _SortByYearWeek(Array.from(this.week2Convs.keys()));
+    x = xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
+    y = xYW.map(yw => _Get(this.week2Frusts, yw));
+    await graphs_.AddPlot({ name: 'Frustration Per Week', x, y, ax: 'y1' });
+    /// /////////////////////////////////////////////////////////////////////////
+    // frust conversations per week
+    xYW = _SortByYearWeek(Array.from(this.week2FrustConvs.keys()));
+    x = xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
+    y = xYW.map(yw => _Get(this.week2FrustConvs, yw));
+    await graphs_.AddPlot({
+      name: 'Frustrated Conversations Per Week',
+      x,
+      y,
+      ax: 'y1'
+    });
+
+    /// /////////////////////////////////////////////////////////////////////////
+    // frusts per conversation
+    xYW = _SortByYearWeek(Array.from(this.week2Convs.keys()));
+    xYW = xYW.filter(yw => _Get(this.week2Convs, yw) > 0);
+    x = xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
+    y = xYW.map(yw => _Get(this.week2Frusts, yw) / _Get(this.week2Convs, yw));
+    await graphs_.AddPlot({
+      name: 'Frustration Per Conversation Per Week',
+      x,
+      y,
+      ax: 'y2'
+    });
+    /// /////////////////////////////////////////////////////////////////////////
+    // frustrated conversations per conversation
+    xYW = _SortByYearWeek(Array.from(this.week2Convs.keys()));
+    xYW = xYW.filter(yw => _Get(this.week2Convs, yw) > 0);
+    x = xYW.map((yearWeekStr) => _FromYearWeekStr(yearWeekStr));
+    y = xYW.map(yw => _Get(this.week2FrustConvs, yw) / _Get(this.week2Convs, yw));
+    await graphs_.AddPlot(
+      {
+        name: 'Frustrated Conversations Per Conversation Per Week',
+        x,
+        y,
+        ax: 'y2'
+      });
+    /// /////////////////////////////////////////////////////////////////////////
+
+    return await graphs_.Draw({ style });
+  }
+}
+
+class IntermediaryOutputInterface {
+  async Conversation ({ conv, index, graph } /*: {conv: any, index: number, graph: GraphOutputInterface} */) /*: Promise<void> */ {
+    throw new Error('Unimplemented');
+  }
+}
+
+async function MakeGraph ({ words, conversations, intermediary }/*: {words: Array<string>, conversations: ConversationIteratorInterface, intermediary: IntermediaryOutputInterface|null} */) /*: Promise<{conv: any, graph: GraphOutputInterface}> */ {
   const week2Convs /*: Map<YearWeekStr, number> */ = new Map();
   const week2Frusts /*: Map<YearWeekStr, number> */= new Map();
   const week2FrustConvs /*: Map<YearWeekStr, number> */= new Map();
 
-  let graphIdx = 0;
-  for await (const { value: conv } of pipeline) {
-    const wordCount /*: number */= _CountWords({ conv, words });
+  const finalConv = {};
+  let convIdx = 0;
+  for await (const conv of conversations.Next()) {
+    console.log(`Progress: ${(conversations.Progress() * 100).toFixed(2)}%`);
+
+    let wordCount /*: number */= 0;
+    if (words.length > 0) {
+      wordCount = _CountWords({ conv, words });
+    }
     const createTime /*: number */ = conv.create_time;
     // Date in UTC
     const createTimeDate /*: Date */ = new Date(createTime * 1000);
@@ -224,13 +284,34 @@ async function MakeGraph ({ words, ChatGPTExportDumpPath }/*: {words: Array<stri
       week2FrustConvs.set(yearWeekStr, _Get(week2FrustConvs, yearWeekStr) + 1);
     }
 
-    if (wordCount > 0) {
-      const graphPath = `graphs/chatgpt_frustration_over_time${graphIdx}.svg`;
-      await DrawGraph({ graphPath, week2Convs, week2FrustConvs, week2Frusts });
-      graphIdx += 1;
+    if (intermediary !== null && intermediary !== undefined) {
+      await intermediary.Conversation({
+        conv,
+        index: convIdx,
+        graph: new GraphOutput({
+          week2Convs,
+          week2Frusts,
+          week2FrustConvs
+        })
+      });
     }
+    convIdx += 1;
   }
-  // TODO: This kills the program for some reason.
-  // await once(pipeline, 'end');
   console.log('Processing completed');
+  return {
+    conv: finalConv,
+    graph: new GraphOutput({
+      week2Convs,
+      week2Frusts,
+      week2FrustConvs
+    })
+  };
 }
+
+export {
+  MakeGraph,
+  FileConversationIterator,
+  GraphOutputInterface,
+  IntermediaryOutputInterface,
+  ConversationIteratorInterface
+};

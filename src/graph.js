@@ -18,18 +18,30 @@ class GraphInfo {
   }
 }
 
+class GraphStyle {
+  /*::
+  margin: {top: number, right: number, bottom: number, left: number};
+  wh: {width: number, height: number};
+  opaque: boolean;
+  url: string|null;
+  */
+
+  constructor ({ margin, wh, opaque, url } /*: {margin: {top: number, right: number, bottom: number, left: number}, wh: {width: number, height: number}, opaque: boolean, url: string} */) {
+    this.margin = margin;
+    this.wh = wh;
+    this.opaque = opaque;
+    this.url = url;
+  }
+}
+
 class DrawGraphToSVG {
-  Draw ({ svg, margin, wh, graphs } /*:
+  Draw ({ svg, graphs, style } /*:
     {svg: HTMLElement,
-     margin: {top: number, right: number, bottom: number, left: number},
-     wh: {width: number, height: number},
-     graphs: Array<GraphInfo>} */) {
-    // Define margins and dimensions
-    // const margin = { top: 20, right: 80, bottom: 30, left: 50 };
-    // const width = 960 - margin.left - margin.right;
-    // const height = 500 - margin.top - margin.bottom;
-    const width = wh.width - margin.left - margin.right;
-    const height = wh.height - margin.top - margin.bottom;
+     graphs: Array<GraphInfo>,
+     style: GraphStyle} */
+  ) {
+    const width = style.wh.width - style.margin.left - style.margin.right;
+    const height = style.wh.height - style.margin.top - style.margin.bottom;
 
     // Create SVG container
     // const svg = d3.select('body').append('svg')
@@ -37,10 +49,10 @@ class DrawGraphToSVG {
     //   .attr('transform', `translate(${margin.left},${margin.top})`);
     // Alter svg selection to use the provided svg element
     const d3Svg = d3.select(svg)
-      .attr('width', width + margin.left + margin.right)
-      .attr('height', height + margin.top + margin.bottom)
+      .attr('width', width + style.margin.left + style.margin.right)
+      .attr('height', height + style.margin.top + style.margin.bottom)
       .append('g')
-      .attr('transform', `translate(${margin.left}, ${margin.top})`);
+      .attr('transform', `translate(${style.margin.left}, ${style.margin.top})`);
 
     // Define scales
     const x = d3.scaleTime().range([0, width]);
@@ -134,6 +146,8 @@ class DrawGraphToSVG {
     /// //////////////////////////////////////////////////////////////////////////
 
     const legendRightX = width - 20;
+    const legendRightOffset = graphs.filter(g => g.ax === 'y1').length;
+
     const legendRight = d3Svg.selectAll('.legend-right')
       .data(graphs.filter(g => g.ax === 'y2'))
       .enter().append('g')
@@ -144,7 +158,7 @@ class DrawGraphToSVG {
       .attr('x', -18)
       .attr('width', 18)
       .attr('height', 18)
-      .style('fill', (d, i) => d3.schemeCategory10[i % 10]);
+      .style('fill', (d, i) => d3.schemeCategory10[i + legendRightOffset % 10]);
 
     legendRight.append('text')
       .attr('x', -24)
@@ -152,7 +166,22 @@ class DrawGraphToSVG {
       .attr('dy', '.35em')
       .style('text-anchor', 'end')
       .text(d => d.name);
+
+    if (style.url) {
+      const link = d3Svg.append('a')
+        .attr('xlink:href', style.url)
+        .attr('target', '_blank');
+
+      // Append text to the link
+      link.append('text')
+        .attr('x', style.wh.width / 2)
+        .attr('y', 0)
+        .attr('text-anchor', 'middle')
+
+        .style('fill', 'blue')
+        .text(style.url);
+    }
   }
 }
 
-export { GraphInfo, DrawGraphToSVG };
+export { GraphInfo, GraphStyle, DrawGraphToSVG };
