@@ -1,0 +1,35 @@
+
+  chatgpt2graph 0.0.1 — [2mGraph ChatGPT usage over time.[22m
+
+  [1mUSAGE[22m 
+  
+    [2m▸[22m chatgpt2graph  [38;2;86;156;214m<OPTIONS...>[39m
+
+
+
+  [1mOPTIONS[22m
+
+   [32m --conversations-path[39m [38;2;86;156;214m<conversations  Path to conversations.js, which you can get from       [39m
+[38;2;86;156;214m   [32m -path>[39m[32m[39m                               exporting your ChatGPT history via ChatGPT settings,   
+    [2mrequired[22m                             downloading the zip file you get via email, and        
+                                         extracting the conversations.json file.                
+   [32m --intermediary-dir[39m [38;2;86;156;214m<intermediary-di  If set, this directory will be filled with intermediary[39m
+[38;2;86;156;214m    r>[39m                                   SVG files.                                             
+   [32m --intermediary-file[39m [38;2;86;156;214m<intermediary-f  If set, this file will be filled with the final SVG.   [39m
+[38;2;86;156;214m    ile>[39m                                                                                        
+   [32m -o[39m,[32m --output[39m [38;2;86;156;214m<output>[39m                Path to the output SVG file.                           
+    [2mrequired[22m                                                                                    
+   [32m -w[39m,[32m --words[39m [38;2;86;156;214m<words>[39m                  A list of words to mark as frustrations, separated by  
+    [2mrequired[22m                             commas.                                                
+
+  [1mGLOBAL OPTIONS[22m
+
+   [32m -h[39m,[32m --help[39m                           Display global help or command-related help.           
+   [32m -V[39m,[32m --version[39m                        Display version.                                       
+   [32m --no-color[39m                           Disable use of colors in output.                       
+   [32m -v[39m,[32m --verbose[39m                        Verbose mode: will also output debug messages.         
+   [32m --quiet[39m                              Quiet mode - only displays warn and error messages.    
+   [32m --silent[39m                             Silent mode: does not output anything, giving no       
+                                         indication of success or failure other than the exit   
+                                         code.                                                  
+
