@@ -13,6 +13,7 @@ import * as dateFns from 'date-fns';
 // import { once } from 'events';
 import jsdom from 'jsdom';
 
+// eslint-disable-next-line no-unused-vars
 import { GraphInfo, GraphStyle, DrawGraphToSVG } from './graph.js';
 const { Parser } = StreamJSON;
 const { streamArray } = StreamArray;

@@ -3,6 +3,7 @@ import {
   MakeGraph,
   FileConversationIterator,
   IntermediaryOutputInterface,
+  // eslint-disable-next-line no-unused-vars
   GraphOutputInterface
 } from './parser.js';
 import { GraphStyle } from './graph.js';

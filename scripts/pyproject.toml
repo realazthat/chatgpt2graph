@@ -1,0 +1,54 @@
+[project]
+name = "chatgpt2graph_dev"
+version = "0.1.0"
+
+[project.optional-dependencies]
+# Set of dependencies that are known to work. To add a new dependency here, add
+# a version range to the `projecct.dependencies` section above, and then run
+# `EXTRA=prod bash scripts/utilties/pin-extra-reqs.sh`. Optionally, delete all the
+# contents to repin all the dependencies (probably a good idea to do once in a
+# while).
+prod = []
+# Set of dev dependencies, all pinned, so that they are known to work. To add a
+# new dependency here, add the unpinned package name here, and then run
+# `EXTRA=dev bash scripts/utilties/pin-extra-reqs.sh`.
+dev = [
+  "argcomplete==3.3.0",
+  "beautifulsoup4==4.12.3",
+  "bs4==0.0.2",
+  "cfgv==3.4.0",
+  "changeguard==0.3.1",
+  "colorama==0.4.6",
+  "defusedxml==0.7.1",
+  "distlib==0.3.8",
+  "filelock==3.13.4",
+  "identify==2.5.35",
+  "jinja2==3.1.3",
+  "markdown-it-py==3.0.0",
+  "markupsafe==2.1.5",
+  "mdremotifier==0.3.1",
+  "mdurl==0.1.2",
+  "mistletoe==1.3.0",
+  "nodeenv==1.8.0",
+  "pathspec==0.12.1",
+  "pexpect==4.9.0",
+  "platformdirs==4.2.0",
+  "pre-commit==3.5.0",
+  "ptyprocess==0.7.0",
+  "pygments==2.17.2",
+  "pyyaml==6.0.1",
+  "rich==13.7.1",
+  "rich-argparse==1.4.0",
+  "snipinator==3.1.2",
+  "soupsieve==2.5",
+  "toml-sort==0.23.1",
+  "tomlkit==0.12.4",
+  "types-beautifulsoup4==4.12.0.20240229",
+  "types-colorama==0.4.15.20240311",
+  "types-html5lib==1.1.11.20240228",
+  "types-pyyaml==6.0.12.20240311",
+  "typing-extensions==4.11.0",
+  "virtualenv==20.25.3",
+  "xmltodict==0.13.0",
+  "yq==3.2.3"
+]
