@@ -1,19 +1,62 @@
 #!/usr/bin/env node
 // @flow strict
-import {
-  MakeGraph,
-  FileConversationIterator,
-  IntermediaryOutputInterface,
-  // eslint-disable-next-line no-unused-vars
-  GraphOutputInterface
-} from './parser.js';
-import { GraphStyle } from './graph.js';
-import { version } from '../lib/version.js';
-import caporal from '@caporal/core';
 import fs from 'fs';
 import path from 'path';
 
+import caporal from '@caporal/core';
+import StreamArray from 'stream-json/streamers/StreamArray.js';
+import StreamJSON from 'stream-json';
+
+import { GraphStyle } from './graph.js';
+import {
+  ConversationIteratorInterface,
+  // eslint-disable-next-line no-unused-vars
+  GraphOutputInterface,
+  IntermediaryOutputInterface,
+  MakeGraph
+} from './parser.js';
+import { version } from '../lib/version.js';
+
+const { Parser } = StreamJSON;
+const { streamArray } = StreamArray;
 const { program } = caporal;
+
+class FileConversationIterator extends ConversationIteratorInterface {
+  /*::
+  ConversationJSONPath: string;
+  processedSize: number;
+  totalSize: number;
+  pipeline: StreamArray;
+  */
+  constructor ({ ConversationJSONPath } /*: {ConversationJSONPath: string} */) {
+    super();
+    this.ConversationJSONPath = ConversationJSONPath;
+    this.processedSize = 0;
+    this.totalSize = 0;
+    const self = this;
+    this.pipeline = fs.createReadStream(this.ConversationJSONPath)
+      .on('data', async chunk => {
+        self.processedSize += chunk.length;
+        if (self.totalSize === 0) {
+          self.totalSize = (await fs.promises.stat(self.ConversationJSONPath)).size;
+        }
+      })
+      .pipe(new Parser())
+      .pipe(streamArray());
+  }
+
+  async * Next () /*: AsyncGenerator<any, void, void> */ {
+    for await (const { value: conv } of this.pipeline) {
+      yield conv;
+    }
+    // TODO: This kills the program for some reason.
+    // await once(this.pipeline, 'end');
+  }
+
+  Progress () /*: number */ {
+    return (this.processedSize / this.totalSize);
+  }
+}
 
 class FileIntermediaryOutput extends IntermediaryOutputInterface {
   /*::

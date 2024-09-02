@@ -5,9 +5,6 @@ type YearWeekStr = string;
 type GraphData = Map<YearWeek, number>;
 
 */
-import StreamJSON from 'stream-json';
-import fs from 'fs';
-import StreamArray from 'stream-json/streamers/StreamArray.js';
 import * as dateFns from 'date-fns';
 // $FlowFixMe - Flow doesn't recognize `once` export correctly
 // import { once } from 'events';
@@ -15,8 +12,6 @@ import jsdom from 'jsdom';
 
 // eslint-disable-next-line no-unused-vars
 import { GraphInfo, GraphStyle, DrawGraphToSVG } from './graph.js';
-const { Parser } = StreamJSON;
-const { streamArray } = StreamArray;
 const { JSDOM } = jsdom;
 
 function _Get (map /*: Map<YearWeekStr, number> */, key /*: YearWeekStr */) /*: number */ {
@@ -136,43 +131,6 @@ class ConversationIteratorInterface {
 
   Progress () /*: number */ {
     throw new Error('Unimplemented');
-  }
-}
-
-class FileConversationIterator extends ConversationIteratorInterface {
-  /*::
-  ConversationJSONPath: string;
-  processedSize: number;
-  totalSize: number;
-  pipeline: StreamArray;
-  */
-  constructor ({ ConversationJSONPath } /*: {ConversationJSONPath: string} */) {
-    super();
-    this.ConversationJSONPath = ConversationJSONPath;
-    this.processedSize = 0;
-    this.totalSize = 0;
-    const self = this;
-    this.pipeline = fs.createReadStream(this.ConversationJSONPath)
-      .on('data', async chunk => {
-        self.processedSize += chunk.length;
-        if (self.totalSize === 0) {
-          self.totalSize = (await fs.promises.stat(self.ConversationJSONPath)).size;
-        }
-      })
-      .pipe(new Parser())
-      .pipe(streamArray());
-  }
-
-  async * Next () /*: AsyncGenerator<any, void, void> */ {
-    for await (const { value: conv } of this.pipeline) {
-      yield conv;
-    }
-    // TODO: This kills the program for some reason.
-    // await once(this.pipeline, 'end');
-  }
-
-  Progress () /*: number */ {
-    return (this.processedSize / this.totalSize);
   }
 }
 
@@ -311,7 +269,6 @@ async function MakeGraph ({ words, conversations, intermediary }/*: {words: Arra
 
 export {
   MakeGraph,
-  FileConversationIterator,
   GraphOutputInterface,
   IntermediaryOutputInterface,
   ConversationIteratorInterface
