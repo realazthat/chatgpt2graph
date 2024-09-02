@@ -2,23 +2,34 @@
   "name": "chatgpt2graph",
   "version": "0.0.1",
   "description": "Graph ChatGPT usage over time.",
+  "bin": {
+    "chatgpt2graph": "./src/cli.js"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel serve src/index.html --public-url '/chatgpt2graph/' --no-cache --dist-dir dist/chatgpt2graph",
+    "start": "parcel serve src/index.html --public-url '/chatgpt2graph/' --no-cache --dist-dir dist/chatgpt2graph --inline",
     "serve": "serve dist/",
-    "build": "parcel build src/index.html --public-url '/chatgpt2graph/' --no-cache --dist-dir dist/chatgpt2graph",
+    "build": "parcel build src/index.html --public-url '/chatgpt2graph/' --no-cache --dist-dir dist/chatgpt2graph --inline",
     "format:js": "semistandard --fix --ignore 'dist/*' --ignore .cache --ignore .git --ignore node_modules",
-    "format:md": "prettier --write **/*.md",
+    "format:md": "prettier --parser markdown --write .github/README.md.jinja2 LICENSE.md",
     "format": "npm run format:js && npm run format:md",
     "genversion": "genversion --esm lib/version.js",
     "deploy": "gh-pages -d dist/chatgpt2graph -b gh-pages",
     "flow": "flow",
     "flow:stop": "flow stop",
-    "flow:check": "flow check"
+    "flow:check": "flow check",
+    "prepublishOnly": "cp -f .github/README.remotified.md README.md && git diff --cached --name-only | xargs npm pack --dry-run"
   },
   "type": "module",
   "author": "realazthat@gmail.com",
   "license": "MIT",
+  "dependencies": {
+    "@caporal/core": "^2.0.7",
+    "d3": "^7.9.0",
+    "date-fns": "^3.6.0",
+    "jsdom": "^25.0.0",
+    "serve": "^14.2.1"
+  },
   "devDependencies": {
     "@babel/core": "^7.23.9",
     "@babel/plugin-transform-flow-strip-types": "^7.23.3",
@@ -46,12 +57,8 @@
     "util": "^0.12.5",
     "vm-browserify": "^1.1.2"
   },
-  "dependencies": {
-    "@caporal/core": "^2.0.7",
-    "d3": "^7.9.0",
-    "date-fns": "^3.6.0",
-    "jsdom": "^25.0.0",
-    "serve": "^14.2.1"
+  "engines": {
+    "node": ">=18.0.0 <19.0.0 || >=20.0.0 <21.0.0 || >=21.0.0 <22.0.0 || >=22.0.0 <23.0.0"
   },
   "babel": {
     "presets": [

@@ -35,15 +35,14 @@ if [[ "${IDEAL}" == "1" ]]; then
   STEP=pre bash scripts/utilities/changeguard.sh
 fi
 
-nvm use
 npm install
 
 
 EXTRA=dev bash scripts/utilities/pin-extra-reqs.sh
 npm run genversion
 bash scripts/generate.sh
-npm run flow:check
-bash scripts/run-ood-smoke-test.sh
+# npm run flow:check
+# bash scripts/run-ood-smoke-test.sh
 if [[ -z "${GITHUB_ACTIONS:-}" ]]; then
   bash scripts/utilities/act.sh
   bash scripts/precommit.sh

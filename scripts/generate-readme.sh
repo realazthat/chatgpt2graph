@@ -24,6 +24,38 @@ bash scripts/format.sh
 
 (
 
+# FORCE_COLOR and TERM are set, to produce consistent results across different
+# systems.
+#
+# Explanation:
+#
+# @caporal/core is used for argument parsing.
+#
+# chalk/chalk, via @caporal/core, uses an internal copy of the supports-color
+# library (https://github.com/chalk/supports-color) here:
+# <https://github.com/chalk/chalk/blob/main/source/vendor/supports-color/index.js>.
+#
+# supports-color is terminal-emulator-dependent.
+#
+# But we want it to produce consistent results for the README output.
+#
+# To do this, we set the FORCE_COLOR environment variable to 3.
+#
+# However, this older version of supports-color does not always listen to
+# FORCE_COLOR, so we also have to set TERM to 'dumb'.
+export FORCE_COLOR=3
+export TERM=dumb
+
+# https://www.npmjs.com/package/cli-width, via @caporal/core, detects column
+# width, and snipinator's rich_cols isn't cutting it.
+export CLI_WIDTH=120
+export LINES=40
+export COLUMNS=120
+
+# Try to make terminal output as consistent as possible.
+FORCE_COLOR=3 TERM=dumb CLI_WIDTH=120 COLUMNS=120 LINES=40 \
+PS4="${GREEN}$ ${NC}" unbuffer npx chatgpt2graph --help \
+  > .github/chatgpt2graph.help.log 2>&1
 
 python -m snipinator.cli \
   -t "${PROJ_PATH}/.github/README.md.jinja2" \

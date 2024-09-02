@@ -1,0 +1,241 @@
+<!--
+{% set project_name='chatgpt2graph' %}
+{% set last_stable_release=shell("node -p \"require('./package.json').version\"",
+                                 include_args=False) | trim %}
+{% set last_unstable_release=last_stable_release %}
+{% set node_versions=shell("node -p \"require('./package.json').engines.node\"",
+                                 include_args=False) | trim %}
+{% set badge_color='0A1E1E' %}
+-->
+
+# <div align="center">![ChatGPT2Graph][1]</div>
+
+<div align="center">
+
+<!-- Icons from https://lucide.dev/icons/users -->
+<!-- Icons from https://lucide.dev/icons/laptop-minimal -->
+
+![**Audience:** Developers][4] ![**Platform:** Linux][5]
+
+</div>
+
+<p align="center">
+  <strong>
+    <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
+    <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
+    <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI</a>
+  </strong>
+</p>
+<p align="center">
+  <strong>
+    <a href="#-requirements">✅Requirements</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-docker-image">🐳Docker</a>
+    &nbsp;&bull;&nbsp;
+    <a href="#-gotchas-and-limitations">🚸Gotchas</a>
+  </strong>
+</p>
+
+<div align="center">
+
+![Top language][6] [![GitHub License][7]][8] [![npm - version][9]][10]
+
+[![Node Version][24]][25]
+
+**Graph ChatGPT usage over time.**
+
+</div>
+
+---
+
+<div align="center">
+
+|                   | Status                      | Stable                    | Unstable                  |                    |
+| ----------------- | --------------------------- | ------------------------- | ------------------------- | ------------------ |
+| **[Master][11]**  | [![Build and Test][13]][15] | [![since tagged][16]][18] |                           | ![last commit][22] |
+| **[Develop][12]** | [![Build and Test][14]][15] | [![since tagged][17]][19] | [![since tagged][20]][21] | ![last commit][23] |
+
+</div>
+
+<img src=".github/demo.gif" alt="Demo" width="100%">
+
+- ❔ What: A web page (and CLI) to generate a graph from exported ChatGPT
+  history.
+- Why: I wanted to know if I was going crazy, or, if ChatGPT was actually
+  getting worse over time.
+
+## 🎇 Features
+
+- Uses OpenAI's history export feature.
+- Graph to SVG or PNG.
+- Graph frustrations over time.
+
+## 🏠 Installation
+
+```bash
+# Install globally from npm registry.
+npm install -g {{project_name}}
+
+# Or install globally, direct from GitHub:
+npm install -g https://github.com/realazthat/{{project_name}}.git#v{{last_stable_release}}
+```
+
+## 🚜 Usage
+
+Example:
+
+TODO
+
+## 💻 Command Line Options
+
+<!--{{ shell('cat .github/chatgpt2graph.help.log',
+             rich='README.help.generated.svg',
+             rich_alt='Output of `npx chatgpt2graph --help`',
+             rich_bg_color='black',
+             rich_term='xterm-256color',
+             rich_cols=160,
+             include_args=False,
+             decomentify='nl') }}-->
+
+## ✅ Requirements
+
+- Supported Node versions: `{{ node_versions }}` (See
+  {{path('./package.json', link='md')}}). These versions were chosen from
+  current supported and upcoming versions of node, from
+  [Node.js: Previous Releases](https://nodejs.org/en/about/previous-releases).
+
+### Tested on
+
+- WSL2 Ubuntu 20.04, Node `{{rawsnippet('./.nvmrc')|trim}}`.
+
+## 🤏 Versioning
+
+We use SemVer for versioning. For the versions available, see the tags on this
+repository.
+
+## 🔑 License
+
+This project is licensed under the MIT License - see the
+{{path('./LICENSE.md', link='md')}} file for details.
+
+## 🫡 Contributions
+
+### Development environment: Linux-like
+
+- For running `pre.sh` (Linux-like environment).
+
+  - From {{path('./.github/dependencies.yml', link='md')}}, which is used for
+    the GH Action to do a fresh install of everything:
+
+    {{shell('python -m yq --yaml-output  \'.dev\' .github/dependencies.yml',
+    include_args=False,
+    backtickify='yaml',
+    indented=4
+    )}}
+
+  - Requires `pyenv`, or an exact matching version of python as in
+    {{path('scripts/.python-version', link='md')}} (which is currently
+    `{{ rawsnippet('scripts/.python-version') }}`).
+  - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
+    [yq](https://github.com/kislyuk/yq), which is itself required for our
+    {{path('./README.md', link='md')}} generation, which uses `tomlq` (from the
+    [yq](https://github.com/kislyuk/yq) package) to include version strings from
+    {{path('./scripts/pyproject.toml', link='md')}}.
+  - act (to run the GH Action locally):
+    - Requires nodejs.
+    - Requires Go.
+    - docker.
+  - Generate animation:
+    - docker
+
+### Commit Process
+
+1. (Optionally) Fork the `develop` branch.
+2. If the {{path('.github/demo.gif', link='md')}} will change, run
+   `bash ./scripts/generate-animation.sh`, this will generate a new
+   {{path('.github/demo.gif', link='md')}}.
+   - Sanity-check the animation visually!
+   - Unfortunately, every run will make a unique gif, please don't stage this
+     file unless it changes due to some feature change or somesuch.
+3. Stage your files: e.g `git add path/to/file.py`.
+4. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
+5. `git status` check if anything changed (generated
+   {{path('README.md', link='md')}} for example), if so, `git add` the changes,
+   and go back to the previous step.
+6. `git commit -m "..."`.
+7. Make a PR to `develop` (or push to develop if you have the rights).
+
+## 🔄🚀 Release Process
+
+These instructions are for maintainers of the project.
+
+1. In the `develop` branch, run `bash {{path('./scripts/pre.sh')}}` to ensure
+   everything is in order.
+2. In the `develop` branch, bump the version in
+   {{path('package.json', link='md')}}, following semantic versioning
+   principles. Run `bash ./scripts/pre.sh` to ensure everything is in order.
+   - If anything got generated (e.g README or terminal output images), you will
+     have to stage those.
+3. In the `develop` branch, commit these changes with a message like
+   `"Prepare release X.Y.Z"`. (See the contributions section
+   [above](#commit-process)).
+4. Merge the `develop` branch into the `master` branch:
+   `git checkout master && git merge develop --no-ff`.
+5. `master` branch: Tag the release: Create a git tag for the release with
+   `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
+6. Publish to NPM: Publish the release to NPM with
+   `bash ./scripts/deploy-to-npm.sh`.
+7. Push to GitHub: Push the commit and tags to GitHub with
+   `git push && git push --tags`.
+8. The `--no-ff` option adds a commit to the master branch for the merge, so
+   refork the develop branch from the master branch:
+   `git checkout develop && git merge master`.
+9. Push the develop branch to GitHub: `git push origin develop`.
+
+[1]: ./.github/logo-exported.svg
+
+<!-- Logo from https://lucide.dev/icons/users -->
+
+[4]:
+  https://img.shields.io/badge/Audience-Developers|Users-{{badge_color}}?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
+
+<!-- Logo from https://lucide.dev/icons/laptop-minimal -->
+
+[5]:
+  https://img.shields.io/badge/Platform-Node-{{badge_color}}?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
+[6]:
+  https://img.shields.io/github/languages/top/realazthat/{{project_name}}.svg?&cacheSeconds=28800&style=plastic&color={{badge_color}}
+[7]:
+  https://img.shields.io/github/license/realazthat/{{project_name}}?style=plastic&color={{badge_color}}
+[8]: ./LICENSE.md
+[9]:
+  https://img.shields.io/npm/v/{{project_name}}?style=plastic&color={{badge_color}}
+[10]: https://www.npmjs.com/package/{{project_name}}
+[11]: https://github.com/realazthat/{{project_name}}/tree/master
+[12]: https://github.com/realazthat/{{project_name}}/tree/develop
+[13]:
+  https://img.shields.io/github/actions/workflow/status/realazthat/{{project_name}}/build-and-test.yml?branch=master&style=plastic
+[14]:
+  https://img.shields.io/github/actions/workflow/status/realazthat/{{project_name}}/build-and-test.yml?branch=develop&style=plastic
+[15]:
+  https://github.com/realazthat/{{project_name}}/actions/workflows/build-and-test.yml
+[16]:
+  https://img.shields.io/github/commits-since/realazthat/{{project_name}}/v{{last_stable_release}}/master?style=plastic
+[17]:
+  https://img.shields.io/github/commits-since/realazthat/{{project_name}}/v{{last_stable_release}}/develop?style=plastic
+[18]:
+  https://github.com/realazthat/{{project_name}}/compare/v{{last_stable_release}}...master
+[19]:
+  https://github.com/realazthat/{{project_name}}/compare/v{{last_stable_release}}...develop
+[20]:
+  https://img.shields.io/github/commits-since/realazthat/{{project_name}}/v{{last_unstable_release}}/develop?style=plastic
+[21]:
+  https://github.com/realazthat/{{project_name}}/compare/v{{last_unstable_release}}...develop
+[22]:
+  https://img.shields.io/github/last-commit/realazthat/{{project_name}}/master?style=plastic
+[23]:
+  https://img.shields.io/github/last-commit/realazthat/{{project_name}}/develop?style=plastic
+[24]:
+  https://img.shields.io/node/v/chatgpt2graph?style=plastic&color={{badge_color}}
+[25]: https://www.npmjs.com/package/chatgpt2graph
