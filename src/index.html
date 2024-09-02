@@ -68,6 +68,10 @@
           <a href="https://github.com/realazthat/chatgpt2graph" target="_blank"><i class="lab la-github"></i></a>
           Generate a chart of your historical usage of ChatGPT.
           <a href="https://github.com/realazthat/chatgpt2graph" target="_blank"><i class="lab la-github"></i></a>
+
+          <span style="float: right;">
+            <a class="github-button" href="https://github.com/realazthat/chatgpt2graph" data-icon="octicon-star" aria-label="Star chatgpt2graph on GitHub"><i class="lab la-github"></i>Star</a>
+          </span>
         </h1>
         <span class="table-2cell" id="instructions" style="font-size: 1.5em;">
           Load a ChatGPT history file, fill in the words you want to graph, and
@@ -79,13 +83,44 @@
           <hr/>
         </div>
 
-        <label class="table-header table-cell" for="words" style="font-size: 1.5em;">Graph Words:</label>
+        <div class="table-2cell">
+          <div style="float: left; width: 45%;">
+            <video autoplay loop muted playsinline controls
+              src="../.github/export-demo.webm"
+              type="video/webp"
+              style="width: 100%"></video>
+            <div>ChatGPT History Export instructions</div>
+          </div>
+          <div style="float: right; width: 45%;">
+            <video autoplay loop muted playsinline controls
+              src="../.github/graph-demo.webm"
+              type="video/webp"
+              style="width: 100%"></video>
+            <div>ChatGPT2Graph instructions</div>
+          </div>
+        </div>
+
+        <label class="table-header table-cell" for="words" style="font-size: 1.5em;">Graph Words (comma separated):</label>
         <input class="table-cell" id="words" type="text" placeholder="Enter words, comma separated" style="margin: 10px; font-size: 1.5em;"/>
 
-        <label class="table-header table-cell" for="load-history" style="font-size: 1.5em;">Load History (conversations.json):</label>
+        <label class="table-header table-cell" for="load-history" style="font-size: 1.5em;">
+          Load History (conversations.json):
+          <br/>
+          <div style="font-size: 0.5em;">
+            Note: The load is completely local/client side, there is no server
+            component to this page aside from serving it statically (from
+            <a href="https://realazthat.github.io/chatgpt2graph/">realazthat.github.io/chatgpt2graph</a>,
+            static page code can be found at
+            <a href="https://github.com/realazthat/chatgpt2graph/tree/gh-pages">github.com/realazthat/chatgpt2graph/tree/gh-pages</a>,
+            and the source code at
+            <a href="https://github.com/realazthat/chatgpt2graph">github.com/realazthat/chatgpt2graph</a>).
+            The loaded history is not uploaded anywhere. You can alternatively
+            choose to download the page and run it offline.
+          </div>
+        </label>
         <input class="table-cell" id="load-history" type="file" accept=".json" style="margin: 10px; font-size: 1.5em;"/>
 
-        <label class="table-header table-cell" for="loaded-indicator" style="font-size: 1.5em;">History loaded colored square indicator:</label>
+        <label class="table-header table-cell" style="font-size: 1.5em;">History loaded colored square indicator:</label>
         <div class="table-cell loaded-indicator" id="loaded-indicator" style="background-color: #ff0000;"></div>
 
         <label class="table-header table-cell" for="background-opaque" style="font-size: 1.5em;">Background opaque?</label>
@@ -118,5 +153,6 @@
 
       gtag('config', 'G-NXGG4JQM73');
     </script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

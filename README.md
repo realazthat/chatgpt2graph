@@ -62,12 +62,14 @@ SOURCE: `.github/README.md.jinja2`.
 
 </div>
 
-<img src=".github/demo.gif" alt="Demo" width="100%">
+<img src=".github/graph-demo.gif" alt="Demo" width="100%">
 
 - ❔ What: A web page (and CLI) to generate a graph from exported ChatGPT
   history.
 - Why: I wanted to know if I was going crazy, or, if ChatGPT was actually
   getting worse over time.
+
+<img src=".github/example.output.svg" alt="Demo" width="100%">
 
 ## 🎇 Features
 
@@ -90,6 +92,20 @@ npm install -g https://github.com/realazthat/chatgpt2graph.git#v0.0.1
 Example:
 
 TODO
+
+## Running Page Locally
+
+```bash
+
+npm install
+npm run start
+# Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
+
+
+npm run build
+npm run serve
+# Navigate to http://localhost:3000/chatgpt2graph/. Note the trailing slash!
+```
 
 ## 💻 Command Line Options
 
