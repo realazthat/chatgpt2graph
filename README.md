@@ -16,7 +16,7 @@ SOURCE: `.github/README.md.jinja2`.
 
 <div align="center">
 
-Try: [realazthat.github.io/chatgpt2graph][111]
+Try: [realazthat.github.io/chatgpt2graph][2]
 
 </div>
 
