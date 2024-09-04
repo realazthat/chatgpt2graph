@@ -1,6 +1,6 @@
 {
   "name": "chatgpt2graph",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Graph ChatGPT usage over time.",
   "bin": {
     "chatgpt2graph": "./src/cli.js"
