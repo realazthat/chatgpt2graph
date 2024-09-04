@@ -13,7 +13,14 @@
 // https://github.com/parcel-bundler/parcel/issues/1762#issuecomment-1154349769
 import 'regenerator-runtime/runtime.js';
 import { ConversationIteratorInterface, MakeGraph } from './parser.js';
-import { GraphStyle } from './graph';
+import { GraphStyle } from './graph.js';
+// Needed to webpack.
+import process from 'process';
+// For webpack
+import exportDemoVideoSrc from '../.github/export-demo.webm';
+import graphDemoVideoSrc from '../.github/graph-demo.webm';
+
+window.process = process;
 
 class State {
   /*::
