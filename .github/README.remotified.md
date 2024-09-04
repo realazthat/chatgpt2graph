@@ -15,7 +15,9 @@ SOURCE: `.github/README.md.jinja2`.
 # <div align="center">[![ChatGPT2Graph][1]][2]</div>
 
 <div align="center">
-  Try: [realazthat.github.io/chatgpt2graph][111]
+
+Try: [realazthat.github.io/chatgpt2graph][111]
+
 </div>
 
 <div align="center">
