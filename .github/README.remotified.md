@@ -68,14 +68,14 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 
 </div>
 
-<img alt="Demo" src="https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.0.1/.github/graph-demo.gif" width="100%"/>
+<img alt="Demo" src="https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.1.0/.github/graph-demo.gif" width="100%"/>
 
 - ❔ What: A web page (and CLI) to generate a graph from exported ChatGPT
   history.
 - Why: I wanted to know if I was going crazy, or, if ChatGPT was actually
   getting worse over time.
 
-<img alt="Demo" src="https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.0.1/.github/example.output.svg" width="100%"/>
+<img alt="Demo" src="https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.1.0/.github/example.output.svg" width="100%"/>
 
 ## 🎇 Features
 
@@ -90,7 +90,7 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 npm install -g chatgpt2graph
 
 # Or install globally, direct from GitHub:
-npm install -g https://github.com/realazthat/chatgpt2graph.git#v0.0.1
+npm install -g https://github.com/realazthat/chatgpt2graph.git#v0.1.0
 ```
 
 ## 🚜 Usage
@@ -116,13 +116,13 @@ npm run serve
 ## 💻 Command Line Options
 
 <!---->
-<img alt="Output of `npx chatgpt2graph --help`" src="https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.0.1/.github/README.help.generated.svg"/>
+<img alt="Output of `npx chatgpt2graph --help`" src="https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.1.0/.github/README.help.generated.svg"/>
 <!-- -->
 
 ## ✅ Requirements
 
 - Supported Node versions: `>=18.0.0 <19.0.0 || >=20.0.0 <21.0.0 || >=21.0.0 <22.0.0 || >=22.0.0 <23.0.0` (See
-  [./package.json](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/package.json)). These versions were chosen from
+  [./package.json](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/package.json)). These versions were chosen from
   current supported and upcoming versions of node, from
   [Node.js: Previous Releases](https://nodejs.org/en/about/previous-releases).
 
@@ -138,7 +138,7 @@ repository.
 ## 🔑 License
 
 This project is licensed under the MIT License - see the
-[./LICENSE.md](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/LICENSE.md) file for details.
+[./LICENSE.md](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/LICENSE.md) file for details.
 
 ## 🫡 Contributions
 
@@ -146,7 +146,7 @@ This project is licensed under the MIT License - see the
 
 - For running `pre.sh` (Linux-like environment).
 
-  - From [./.github/dependencies.yml](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/.github/dependencies.yml), which is used for
+  - From [./.github/dependencies.yml](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/.github/dependencies.yml), which is used for
     the GH Action to do a fresh install of everything:
 
     ```yaml
@@ -171,13 +171,13 @@ This project is licensed under the MIT License - see the
     ```
 
   - Requires `pyenv`, or an exact matching version of python as in
-    [scripts/.python-version](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/scripts/.python-version) (which is currently
+    [scripts/.python-version](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/scripts/.python-version) (which is currently
     `3.8.18 `).
   - `jq`, ([installation](https://jqlang.github.io/jq/)) required for
     [yq](https://github.com/kislyuk/yq), which is itself required for our
-    [./README.md](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/README.md) generation, which uses `tomlq` (from the
+    [./README.md](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/README.md) generation, which uses `tomlq` (from the
     [yq](https://github.com/kislyuk/yq) package) to include version strings from
-    [./scripts/pyproject.toml](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/scripts/pyproject.toml).
+    [./scripts/pyproject.toml](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/scripts/pyproject.toml).
   - act (to run the GH Action locally):
     - Requires nodejs.
     - Requires Go.
@@ -188,16 +188,16 @@ This project is licensed under the MIT License - see the
 ### Commit Process
 
 1. (Optionally) Fork the `develop` branch.
-2. If the [.github/demo.gif](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/.github/demo.gif) will change, run
+2. If the [.github/demo.gif](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/.github/demo.gif) will change, run
    `bash ./scripts/generate-animation.sh`, this will generate a new
-   [.github/demo.gif](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/.github/demo.gif).
+   [.github/demo.gif](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/.github/demo.gif).
    - Sanity-check the animation visually!
    - Unfortunately, every run will make a unique gif, please don't stage this
      file unless it changes due to some feature change or somesuch.
 3. Stage your files: e.g `git add path/to/file.py`.
 4. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
 5. `git status` check if anything changed (generated
-   [README.md](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/README.md) for example), if so, `git add` the changes,
+   [README.md](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/README.md) for example), if so, `git add` the changes,
    and go back to the previous step.
 6. `git commit -m "..."`.
 7. Make a PR to `develop` (or push to develop if you have the rights).
@@ -209,7 +209,7 @@ These instructions are for maintainers of the project.
 1. In the `develop` branch, run `bash ./scripts/pre.sh` to ensure
    everything is in order.
 2. In the `develop` branch, bump the version in
-   [package.json](https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/package.json), following semantic versioning
+   [package.json](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/package.json), following semantic versioning
    principles. Run `bash ./scripts/pre.sh` to ensure everything is in order.
    - If anything got generated (e.g README or terminal output images), you will
      have to stage those.
@@ -233,13 +233,13 @@ These instructions are for maintainers of the project.
 
 <!-- Logo from https://lucide.dev/icons/laptop-minimal -->
 
-[1]: https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.0.1/.github/logo-exported.svg
+[1]: https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.1.0/.github/logo-exported.svg
 [2]: https://realazthat.github.io/chatgpt2graph
 [3]: https://img.shields.io/badge/Audience-Developers|Users-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
 [4]: https://img.shields.io/badge/Platform-Node-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
 [5]: https://img.shields.io/github/languages/top/realazthat/chatgpt2graph.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
 [6]: https://img.shields.io/github/license/realazthat/chatgpt2graph?style=plastic&color=0A1E1E
-[7]: https://github.com/realazthat/chatgpt2graph/blob/v0.0.1/LICENSE.md
+[7]: https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/LICENSE.md
 [8]: https://img.shields.io/npm/v/chatgpt2graph?style=plastic&color=0A1E1E
 [9]: https://www.npmjs.com/package/chatgpt2graph
 [10]: https://img.shields.io/node/v/chatgpt2graph?style=plastic&color=0A1E1E
@@ -247,13 +247,13 @@ These instructions are for maintainers of the project.
 [12]: https://github.com/realazthat/chatgpt2graph/tree/master
 [13]: https://img.shields.io/github/actions/workflow/status/realazthat/chatgpt2graph/build-and-test.yml?branch=master&style=plastic
 [14]: https://github.com/realazthat/chatgpt2graph/actions/workflows/build-and-test.yml
-[15]: https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.0.1/master?style=plastic
-[16]: https://github.com/realazthat/chatgpt2graph/compare/v0.0.1...master
+[15]: https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/master?style=plastic
+[16]: https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...master
 [17]: https://img.shields.io/github/last-commit/realazthat/chatgpt2graph/master?style=plastic
 [18]: https://github.com/realazthat/chatgpt2graph/tree/develop
 [19]: https://img.shields.io/github/actions/workflow/status/realazthat/chatgpt2graph/build-and-test.yml?branch=develop&style=plastic
-[20]: https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.0.1/develop?style=plastic
-[21]: https://github.com/realazthat/chatgpt2graph/compare/v0.0.1...develop
-[22]: https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.0.1/develop?style=plastic
-[23]: https://github.com/realazthat/chatgpt2graph/compare/v0.0.1...develop
+[20]: https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/develop?style=plastic
+[21]: https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...develop
+[22]: https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/develop?style=plastic
+[23]: https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...develop
 [24]: https://img.shields.io/github/last-commit/realazthat/chatgpt2graph/develop?style=plastic
