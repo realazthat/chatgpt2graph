@@ -12,14 +12,18 @@ SOURCE: `.github/README.md.jinja2`.
 
 -->
 
-# <div align="center">![ChatGPT2Graph][1]</div>
+# <div align="center">[![ChatGPT2Graph][1]][2]</div>
+
+<div align="center">
+  Try: [realazthat.github.io/chatgpt2graph][111]
+</div>
 
 <div align="center">
 
 <!-- Icons from https://lucide.dev/icons/users -->
 <!-- Icons from https://lucide.dev/icons/laptop-minimal -->
 
-![**Audience:** Developers][2] ![**Platform:** Linux][3]
+![**Audience:** Developers][3] ![**Platform:** Linux][4]
 
 </div>
 
@@ -43,9 +47,9 @@ SOURCE: `.github/README.md.jinja2`.
 
 <div align="center">
 
-![Top language][4] [![GitHub License][5]][6] [![npm - version][7]][8]
+![Top language][5] [![GitHub License][6]][7] [![npm - version][8]][9]
 
-[![Node Version][9]][10]
+[![Node Version][10]][11]
 
 **Graph ChatGPT usage over time.**
 
@@ -57,8 +61,8 @@ SOURCE: `.github/README.md.jinja2`.
 
 |                   | Status                      | Stable                    | Unstable                  |                    |
 | ----------------- | --------------------------- | ------------------------- | ------------------------- | ------------------ |
-| **[Master][11]**  | [![Build and Test][12]][13] | [![since tagged][14]][15] |                           | ![last commit][16] |
-| **[Develop][17]** | [![Build and Test][18]][13] | [![since tagged][19]][20] | [![since tagged][21]][22] | ![last commit][23] |
+| **[Master][12]**  | [![Build and Test][13]][14] | [![since tagged][15]][16] |                           | ![last commit][17] |
+| **[Develop][18]** | [![Build and Test][19]][14] | [![since tagged][20]][21] | [![since tagged][22]][23] | ![last commit][24] |
 
 </div>
 
@@ -155,6 +159,12 @@ This project is licensed under the MIT License - see the
     jq: dependency for [yq](https://github.com/kislyuk/yq), which is used to generate
       the README; the README generator needs to use `tomlq` (which is a part of `yq`)
       to query `pyproject.toml`.
+    libcairo2-dev: For node canvas library.
+    libjpeg-dev: For node canvas library.
+    libpango1.0-dev: For node canvas library.
+    libgif-dev: For node canvas library.
+    build-essential: For node canvas library.
+    g++: For node canvas library.
     
     ```
 
@@ -223,42 +233,43 @@ These instructions are for maintainers of the project.
 <!-- Logo from https://lucide.dev/icons/laptop-minimal -->
 
 [1]: ./.github/logo-exported.svg
-[2]:
-  https://img.shields.io/badge/Audience-Developers|Users-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
+[2]: https://realazthat.github.io/chatgpt2graph
 [3]:
-  https://img.shields.io/badge/Platform-Node-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
+  https://img.shields.io/badge/Audience-Developers|Users-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLXVzZXJzIj48cGF0aCBkPSJNMTYgMjF2LTJhNCA0IDAgMCAwLTQtNEg2YTQgNCAwIDAgMC00IDR2MiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI3IiByPSI0Ii8+PHBhdGggZD0iTTIyIDIxdi0yYTQgNCAwIDAgMC0zLTMuODciLz48cGF0aCBkPSJNMTYgMy4xM2E0IDQgMCAwIDEgMCA3Ljc1Ii8+PC9zdmc+
 [4]:
-  https://img.shields.io/github/languages/top/realazthat/chatgpt2graph.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
+  https://img.shields.io/badge/Platform-Node-0A1E1E?style=plastic&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWxhcHRvcC1taW5pbWFsIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTIiIHg9IjMiIHk9IjQiIHJ4PSIyIiByeT0iMiIvPjxsaW5lIHgxPSIyIiB4Mj0iMjIiIHkxPSIyMCIgeTI9IjIwIi8+PC9zdmc+
 [5]:
+  https://img.shields.io/github/languages/top/realazthat/chatgpt2graph.svg?&cacheSeconds=28800&style=plastic&color=0A1E1E
+[6]:
   https://img.shields.io/github/license/realazthat/chatgpt2graph?style=plastic&color=0A1E1E
-[6]: ./LICENSE.md
-[7]:
+[7]: ./LICENSE.md
+[8]:
   https://img.shields.io/npm/v/chatgpt2graph?style=plastic&color=0A1E1E
-[8]: https://www.npmjs.com/package/chatgpt2graph
-[9]:
+[9]: https://www.npmjs.com/package/chatgpt2graph
+[10]:
   https://img.shields.io/node/v/chatgpt2graph?style=plastic&color=0A1E1E
-[10]: https://www.npmjs.com/package/chatgpt2graph
-[11]: https://github.com/realazthat/chatgpt2graph/tree/master
-[12]:
-  https://img.shields.io/github/actions/workflow/status/realazthat/chatgpt2graph/build-and-test.yml?branch=master&style=plastic
+[11]: https://www.npmjs.com/package/chatgpt2graph
+[12]: https://github.com/realazthat/chatgpt2graph/tree/master
 [13]:
-  https://github.com/realazthat/chatgpt2graph/actions/workflows/build-and-test.yml
+  https://img.shields.io/github/actions/workflow/status/realazthat/chatgpt2graph/build-and-test.yml?branch=master&style=plastic
 [14]:
-  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.0.1/master?style=plastic
+  https://github.com/realazthat/chatgpt2graph/actions/workflows/build-and-test.yml
 [15]:
-  https://github.com/realazthat/chatgpt2graph/compare/v0.0.1...master
+  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.0.1/master?style=plastic
 [16]:
+  https://github.com/realazthat/chatgpt2graph/compare/v0.0.1...master
+[17]:
   https://img.shields.io/github/last-commit/realazthat/chatgpt2graph/master?style=plastic
-[17]: https://github.com/realazthat/chatgpt2graph/tree/develop
-[18]:
-  https://img.shields.io/github/actions/workflow/status/realazthat/chatgpt2graph/build-and-test.yml?branch=develop&style=plastic
+[18]: https://github.com/realazthat/chatgpt2graph/tree/develop
 [19]:
-  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.0.1/develop?style=plastic
+  https://img.shields.io/github/actions/workflow/status/realazthat/chatgpt2graph/build-and-test.yml?branch=develop&style=plastic
 [20]:
-  https://github.com/realazthat/chatgpt2graph/compare/v0.0.1...develop
-[21]:
   https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.0.1/develop?style=plastic
-[22]:
+[21]:
   https://github.com/realazthat/chatgpt2graph/compare/v0.0.1...develop
+[22]:
+  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.0.1/develop?style=plastic
 [23]:
+  https://github.com/realazthat/chatgpt2graph/compare/v0.0.1...develop
+[24]:
   https://img.shields.io/github/last-commit/realazthat/chatgpt2graph/develop?style=plastic

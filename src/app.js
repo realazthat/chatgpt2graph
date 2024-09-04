@@ -16,9 +16,6 @@ import { ConversationIteratorInterface, MakeGraph } from './parser.js';
 import { GraphStyle } from './graph.js';
 // Needed to webpack.
 import process from 'process';
-// For webpack
-import exportDemoVideoSrc from '../.github/export-demo.webm';
-import graphDemoVideoSrc from '../.github/graph-demo.webm';
 
 window.process = process;
 
