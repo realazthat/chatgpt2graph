@@ -9,9 +9,9 @@
 
   [1mOPTIONS[22m
 
-   [32m --conversations-path[39m [38;2;86;156;214m<conversations  Path to conversations.js, which you can get from       [39m
-[38;2;86;156;214m   [32m -path>[39m[32m[39m                               exporting your ChatGPT history via ChatGPT settings,   
-    [2mrequired[22m                             downloading the zip file you get via email, and        
+   [32m -i[39m,[32m --input[39m [38;2;86;156;214m<input-path>[39m             Path to conversations.js, which you can get from       
+    [2mrequired[22m                             exporting your ChatGPT history via ChatGPT settings,   
+                                         downloading the zip file you get via email, and        
                                          extracting the conversations.json file.                
    [32m --intermediary-dir[39m [38;2;86;156;214m<intermediary-di  If set, this directory will be filled with intermediary[39m
 [38;2;86;156;214m    r>[39m                                   SVG files.                                             

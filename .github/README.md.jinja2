@@ -5,6 +5,8 @@
 {% set last_unstable_release=last_stable_release %}
 {% set node_versions=shell("node -p \"require('./package.json').engines.node\"",
                                  include_args=False) | trim %}
+{% set tested_node_versions=shell('python -m yq -c \'.jobs["build-and-test"]["strategy"]["matrix"]["node-version"]\' .github/workflows/build-and-test.yml',
+                                 include_args=False) | trim %}
 {% set badge_color='0A1E1E' %}
 -->
 
@@ -82,31 +84,57 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 ## 🏠 Installation
 
 ```bash
-# Install globally from npm registry.
+# Option 1: Install globally from npm registry:
 npm install -g {{project_name}}
 
-# Or install globally, direct from GitHub:
+# Option 2: Or install globally, direct from GitHub:
 npm install -g https://github.com/realazthat/{{project_name}}.git#v{{last_stable_release}}
+
+# Option 3: Or install in a directory:
+git clone https://github.com/realazthat/{{project_name}}
+cd {{project_name}}
+npm install
 ```
 
 ## 🚜 Usage
 
 Example:
 
-TODO
+<!--{{snippet('./examples/simple_example.sh',
+              start='# SNIPPET_START',
+              end='\n# SNIPPET_END',
+              backtickify='bash',
+              decomentify='nl')|trim}}-->
 
-## Running Page Locally
+<!--{{ shell('cat ./.github/simple_example.log',
+               start=': ECHO_SNIPPET_START',
+               end='^.*: ECHO_SNIPPET_END',
+               regex='MULTILINE',
+               rich='README.simple_example.log.svg',
+               rich_alt='Output of `bash ./examples/simple_example.sh`',
+               rich_bg_color='black',
+               rich_term='xterm-256color',
+               rich_cols=160,
+               include_args=False,
+               decomentify='nl') }}-->
+
+And the resulting graph (svg):
+
+<img src="./examples/simple_example_output.svg" alt="Graph example output SVG" width="400" />
+
+## Running Page On Your Machine
 
 ```bash
 
-npm install
+# Option 1: In a directory installation, Start the development server (directory from the source code):
 npm run start
 # Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
 
-
+# Option 2: In a directory installation, Build first in dist/ and then serve:
 npm run build
 npm run serve
 # Navigate to http://localhost:3000/chatgpt2graph/. Note the trailing slash!
+
 ```
 
 ## 💻 Command Line Options
@@ -126,10 +154,31 @@ npm run serve
   {{path('./package.json', link='md')}}). These versions were chosen from
   current supported and upcoming versions of node, from
   [Node.js: Previous Releases](https://nodejs.org/en/about/previous-releases).
+- Tested Node versions on GitHub Actions: `{{ tested_node_versions }}`.
 
 ### Tested on
 
 - WSL2 Ubuntu 20.04, Node `{{rawsnippet('./.nvmrc')|trim}}`.
+
+## 🐳 Docker Image
+
+Docker images are published to [ghcr.io/realazthat/{{project_name}}][49] at each
+tag.
+
+<!--{{snippet('./examples/simple-remote-docker_example-noautorun.sh',
+              start='# SNIPPET_START',
+              end='\n# SNIPPET_END',
+              backtickify='bash',
+              decomentify='nl')|trim}}-->
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+<!--{{snippet('./examples/simple-local-docker_example.sh',
+              start='# SNIPPET_START',
+              end='\n# SNIPPET_END',
+              backtickify='bash',
+              decomentify='nl')|trim}}-->
 
 ## 🤏 Versioning
 

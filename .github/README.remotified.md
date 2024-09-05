@@ -10,6 +10,7 @@ SOURCE: `.github/README.md.jinja2`.
 
 
 
+
 -->
 
 # <div align="center">[![ChatGPT2Graph][1]][2]</div>
@@ -86,31 +87,56 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 ## 🏠 Installation
 
 ```bash
-# Install globally from npm registry.
+# Option 1: Install globally from npm registry:
 npm install -g chatgpt2graph
 
-# Or install globally, direct from GitHub:
+# Option 2: Or install globally, direct from GitHub:
 npm install -g https://github.com/realazthat/chatgpt2graph.git#v0.1.0
+
+# Option 3: Or install in a directory:
+git clone https://github.com/realazthat/chatgpt2graph
+cd chatgpt2graph
+npm install
 ```
 
 ## 🚜 Usage
 
 Example:
 
-TODO
+<!---->
+```bash
 
-## Running Page Locally
+npx chatgpt2graph \
+  -i ./examples/conversations.json \
+  -w idiot \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
+
+<!---->
+<img alt="Output of `bash ./examples/simple_example.sh`" src="https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.1.0/.github/README.simple_example.log.svg"/>
+<!-- -->
+
+And the resulting graph (svg):
+
+<img alt="Graph example output SVG" src="https://raw.githubusercontent.com/realazthat/chatgpt2graph/v0.1.0/examples/simple_example_output.svg" width="400"/>
+
+## Running Page On Your Machine
 
 ```bash
 
-npm install
+# Option 1: In a directory installation, Start the development server (directory from the source code):
 npm run start
 # Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
 
-
+# Option 2: In a directory installation, Build first in dist/ and then serve:
 npm run build
 npm run serve
 # Navigate to http://localhost:3000/chatgpt2graph/. Note the trailing slash!
+
 ```
 
 ## 💻 Command Line Options
@@ -125,10 +151,56 @@ npm run serve
   [./package.json](https://github.com/realazthat/chatgpt2graph/blob/v0.1.0/package.json)). These versions were chosen from
   current supported and upcoming versions of node, from
   [Node.js: Previous Releases](https://nodejs.org/en/about/previous-releases).
+- Tested Node versions on GitHub Actions: `["18.20.2","20.12.1","21.7.3","22.0.0"]`.
 
 ### Tested on
 
 - WSL2 Ubuntu 20.04, Node `v20.12.1`.
+
+## 🐳 Docker Image
+
+Docker images are published to [ghcr.io/realazthat/chatgpt2graph][49] at each
+tag.
+
+<!---->
+```bash
+
+# Use the published images at ghcr.io/realazthat/snipinator.
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
+  -v "${PWD}:/data" \
+  ghcr.io/realazthat/chatgpt2graph:v0.1.0 \
+  -i ./examples/conversations.json \
+  -w idiot \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+<!---->
+```bash
+
+docker build -t my-chatgpt2graph-image .
+
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
+  -v "${PWD}:/data" \
+  my-chatgpt2graph-image \
+  -i ./examples/conversations.json \
+  -w idiot \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
 
 ## 🤏 Versioning
 

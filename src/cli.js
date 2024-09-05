@@ -96,8 +96,10 @@ class FileIntermediaryOutput extends IntermediaryOutputInterface {
 }
 
 async function amain ({ options, logger } /*: {options: any, logger: any} */) {
+  logger.info('options:', options);
+
   const words /*: string */ = options.words;
-  const conversationsPath /*: string */ = options.conversationsPath;
+  const input /*: string */ = options.input;
   const output /*: string */ = options.output;
   const intermediaryDir /*: string */ = options.intermediaryDir;
   const intermediaryFile /*: string */ = options.intermediaryFile;
@@ -109,7 +111,7 @@ async function amain ({ options, logger } /*: {options: any, logger: any} */) {
     url: 'https://realazthat.github.io/chatgpt2graph/'
   });
 
-  const conversations = new FileConversationIterator({ ConversationJSONPath: conversationsPath });
+  const conversations = new FileConversationIterator({ ConversationJSONPath: input });
   const intermediary = new FileIntermediaryOutput({
     graphStyle,
     intermediaryDir,
@@ -133,15 +135,15 @@ program
   .description(
     'Graph ChatGPT usage over time.'
   )
+  .option(
+    '-i, --input <input-path>',
+    'Path to conversations.js, which you can get from exporting your ChatGPT history via ChatGPT settings, downloading the zip file you get via email, and extracting the conversations.json file.',
+    { validator: program.STRING, required: true }
+  )
   .option('-w, --words <words>', 'A list of words to mark as frustrations, separated by commas.', {
     validator: program.STRING,
     required: true
   })
-  .option(
-    '--conversations-path <conversations-path>',
-    'Path to conversations.js, which you can get from exporting your ChatGPT history via ChatGPT settings, downloading the zip file you get via email, and extracting the conversations.json file.',
-    { validator: program.STRING, required: true }
-  )
   .option(
     '-o, --output <output>',
     'Path to the output SVG file.',
