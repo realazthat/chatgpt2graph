@@ -223,19 +223,21 @@ This project is licensed under the MIT License - see the
 ### Commit Process
 
 1. (Optionally) Fork the `develop` branch.
-2. If the {{path('.github/demo.gif', link='md')}} will change, run
-   `bash ./scripts/generate-animation.sh`, this will generate a new
-   {{path('.github/demo.gif', link='md')}}.
-   - Sanity-check the animation visually!
-   - Unfortunately, every run will make a unique gif, please don't stage this
-     file unless it changes due to some feature change or somesuch.
-3. Stage your files: e.g `git add path/to/file.py`.
-4. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
-5. `git status` check if anything changed (generated
+2. Stage your files: e.g `git add path/to/file.py`.
+3. `bash ./scripts/pre.sh`, this will format, lint, and test the code. If there
+   is an error then fix it and repeat this step.
+4. `git status` check if anything changed (generated
    {{path('README.md', link='md')}} for example), if so, `git add` the changes,
    and go back to the previous step.
-6. `git commit -m "..."`.
-7. Make a PR to `develop` (or push to develop if you have the rights).
+5. `git commit` with an appropriately detailed commit message.
+6. Make a PR to `develop` (or push to develop if you have the rights).
+
+### Deplying to GH Pages
+
+This requires permissions in the remote repository.
+
+1. `npm run build` to build the site.
+2. `npm run deploy` to deploy the site to GitHub Pages.
 
 ## 🔄🚀 Release Process
 
@@ -256,7 +258,8 @@ These instructions are for maintainers of the project.
 5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
 6. Publish to NPM: Publish the release to NPM with
-   `bash ./scripts/deploy-to-npm.sh`.
+   `bash ./scripts/deploy-to-npm.sh`. This step requires an NPM account with
+   permissions to publish the package.
 7. Push to GitHub: Push the commit and tags to GitHub with
    `git push && git push --tags`.
 8. The `--no-ff` option adds a commit to the master branch for the merge, so
