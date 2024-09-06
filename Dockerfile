@@ -18,7 +18,7 @@ USER node
 # ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 # ENV PATH=/home/node/.npm-global/bin:$PATH
 WORKDIR /chatgpt2graph
-RUN npm ci --loglevel silly . --timeout=3000000
+RUN npm ci --loglevel silly . --timeout=3000000 --fetch-retries=3 --fetch-retry-factor=1 --fetch-retry-mintimeout=1000 --fetch-retry-maxtimeout=60000
 
 # This is where the user will mount their data to.
 WORKDIR /data
