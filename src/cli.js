@@ -2,6 +2,7 @@
 // @flow strict
 import fs from 'fs';
 import path from 'path';
+import jsdom from 'jsdom';
 
 import caporal from '@caporal/core';
 import StreamArray from 'stream-json/streamers/StreamArray.js';
@@ -16,10 +17,23 @@ import {
   MakeGraph
 } from './parser.js';
 import { version } from '../lib/version.js';
+const { JSDOM } = jsdom;
 
 const { Parser } = StreamJSON;
 const { streamArray } = StreamArray;
 const { program } = caporal;
+
+function MakeSVGElement ({ graphStyle }/*: {graphStyle: GraphStyle} */) /*: HTMLElement */ {
+  const { margin, wh } = graphStyle;
+  const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
+  const svg = dom.window.document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', wh.width + margin.left + margin.right);
+  svg.setAttribute('height', wh.height + margin.top + margin.bottom);
+
+  // Append the SVG element to the body
+  dom.window.document.body.appendChild(svg);
+  return svg;
+}
 
 class FileConversationIterator extends ConversationIteratorInterface {
   /*::
@@ -77,7 +91,8 @@ class FileIntermediaryOutput extends IntermediaryOutputInterface {
     const intermediaryDir = this.intermediaryDir;
 
     if (intermediaryFile) {
-      svg = await graph.SVG({ style: this.graphStyle });
+      const svgElement = MakeSVGElement({ graphStyle: this.graphStyle });
+      svg = await graph.SVG({ style: this.graphStyle, svgElement });
 
       const intermediaryFileDir = path.dirname(intermediaryFile);
       await fs.promises.mkdir(intermediaryFileDir, { recursive: true });
@@ -85,7 +100,8 @@ class FileIntermediaryOutput extends IntermediaryOutputInterface {
     }
     if (intermediaryDir) {
       if (!svg) {
-        svg = await graph.SVG({ style: this.graphStyle });
+        const svgElement = MakeSVGElement({ graphStyle: this.graphStyle });
+        svg = await graph.SVG({ style: this.graphStyle, svgElement });
       }
 
       await fs.promises.mkdir(intermediaryDir, { recursive: true });
@@ -126,7 +142,7 @@ async function amain ({ options, logger } /*: {options: any, logger: any} */) {
   // create the parent directory if it doesn't exist
   const graphDir = path.dirname(output);
   await fs.promises.mkdir(graphDir, { recursive: true });
-  await fs.promises.writeFile(output, await graph.SVG({ style: graphStyle }));
+  await fs.promises.writeFile(output, await graph.SVG({ style: graphStyle, svgElement: MakeSVGElement({ graphStyle }) }));
 }
 
 program

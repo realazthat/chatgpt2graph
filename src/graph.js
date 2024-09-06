@@ -36,7 +36,7 @@ class GraphStyle {
 
 class DrawGraphToSVG {
   Draw ({ svg, graphs, style } /*:
-    {svg: HTMLElement,
+    {svg: Element,
      graphs: Array<GraphInfo>,
      style: GraphStyle} */
   ) {

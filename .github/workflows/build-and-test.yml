@@ -45,16 +45,9 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.8.18
-    - name: Get Dependencies
-      run: |
-        sudo apt-get update && sudo apt-get install -y jq
-        pip install yq
-        APT_DEPS=$(python -m yq -r -c '.dev | keys | join(" ")' .github/dependencies.yml)
-        echo "APT_DEPS=${APT_DEPS}" >> $GITHUB_ENV
     - name: Install Dependencies (Ubuntu)
       run: |
-        # See project/.github/dependencies.yml for a list of dependencies.
-        sudo apt-get update && sudo apt-get install -y ${APT_DEPS}
+        bash scripts/install-reqs.sh
     # - name: Install nvm
     #   run: |
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash

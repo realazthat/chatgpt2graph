@@ -173,7 +173,10 @@ GenerateGraphButton.addEventListener('click', async function () {
       url: 'https://realazthat.github.io/chatgpt2graph/'
     });
 
-    const svg /*: string */= await graph.SVG({ style: graphStyle });
+    const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgElement.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink');
+
+    const svg /*: string */= await graph.SVG({ style: graphStyle, svgElement });
     const svgURL = `data:image/svg+xml,${encodeURIComponent(svg)}`;
     const pngURL = await SVGToPNGURL({ svg });
     GraphImageElement.src = svgURL;

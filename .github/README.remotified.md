@@ -239,6 +239,8 @@ This project is licensed under the MIT License - see the
     libgif-dev: For node canvas library.
     build-essential: For node canvas library.
     g++: For node canvas library.
+    ffmpeg: For compressing the demo videos for the web.
+    gifsicle: Optimizing demo videos.
 
     ```
 
