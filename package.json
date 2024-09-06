@@ -10,7 +10,7 @@
     "start": "webpack serve --open",
     "build": "webpack --mode production",
     "serve": "webpack serve --mode production --open --port 3000",
-    "format:js": "semistandard --fix --ignore 'dist/*' --ignore .cache --ignore .git --ignore node_modules",
+    "format:js": "semistandard --fix --ignore 'dist/*' --ignore .cache --ignore .git --ignore node_modules --ignore lib/version.js",
     "format:md": "prettier --parser markdown --write .github/README.md.jinja2 LICENSE.md",
     "format": "npm run format:js && npm run format:md",
     "genversion": "genversion --esm lib/version.js",
