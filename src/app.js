@@ -125,22 +125,33 @@ class AppConversationIterator extends ConversationIteratorInterface {
 
 LoadHistoryElement.addEventListener('change', function (e) {
   try {
+    ErrorMessageSpanElement.textContent = 'Loading conversations';
+    ErrorMessageSpanElement.style.color = 'green';
+
     const reader = new FileReader();
     reader.onload = async function (event) {
+      if (event.target === null) {
+        throw new Error('event.target is null');
+      }
+
+      ErrorMessageSpanElement.textContent = 'Loaded File';
+      ErrorMessageSpanElement.style.color = 'green';
+
       const arrayBuffer = reader.result;
       if (!(arrayBuffer instanceof ArrayBuffer)) {
         throw new Error(`not an ArrayBuffer: ${typeof arrayBuffer}`);
       }
       const conversations = new AppConversationIterator({ buffer: arrayBuffer });
       window.chatgpt2GraphState.conversations = conversations;
-      // Set the color to be green.
       LoadedIndicatorElement.style.backgroundColor = 'green';
+      ErrorMessageSpanElement.textContent = 'Finished loading conversations';
+      ErrorMessageSpanElement.style.color = 'green';
     };
     // $FlowFixMe: `files` is missing in  `EventTarget`
     const files /*: FileList */ = e.target.files;
     reader.readAsArrayBuffer(files[0]);
-    ErrorMessageSpanElement.innerHTML = '&nbsp;';
-    ErrorMessageSpanElement.style.color = 'black';
+    ErrorMessageSpanElement.textContent = 'Loading file';
+    ErrorMessageSpanElement.style.color = 'green';
   } catch (err) {
     console.error(err);
     ErrorMessageSpanElement.textContent = err.message;
