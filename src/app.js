@@ -7,6 +7,7 @@
 /* global HTMLButtonElement */
 /* global HTMLSpanElement */
 /* global HTMLAnchorElement */
+/* global HTMLDivElement */
 /* global Image */
 
 // https://github.com/parcel-bundler/parcel/issues/1762#issuecomment-763720624
@@ -65,6 +66,12 @@ if (!ErrorMessageSpanElement) { throw new Error('missing error message element')
 if (!(ErrorMessageSpanElement instanceof HTMLSpanElement)) {
   throw new Error('error message element is not an element');
 }
+const DownloadLinksDiv = document.getElementById('download-links-div');
+if (!DownloadLinksDiv) { throw new Error('missing download links div'); }
+if (!(DownloadLinksDiv instanceof HTMLDivElement)) {
+  throw new Error('download links div is not a div');
+}
+
 const DownloadGraphAsSVGLink = document.getElementById('download-graph-svg');
 if (!DownloadGraphAsSVGLink) { throw new Error('missing download graph as svg link'); }
 if (!(DownloadGraphAsSVGLink instanceof HTMLAnchorElement)) {
@@ -76,7 +83,7 @@ if (!(DownloadGraphAsPNGLink instanceof HTMLAnchorElement)) {
   throw new Error('download graph as png link is not an anchor');
 }
 
-class RawConversationIterator extends ConversationIteratorInterface {
+class AppConversationIterator extends ConversationIteratorInterface {
   /*::
   buffer: ArrayBuffer;
   processedSize: number;
@@ -92,9 +99,23 @@ class RawConversationIterator extends ConversationIteratorInterface {
   }
 
   async * Next () /*: AsyncGenerator<any, void, void> */ {
+    let t = 0;
+
     while (this.index < this.conversations.length) {
       yield this.conversations[this.index++];
+
+      const dt = performance.now() - t;
+      // if a second has passed, update the progress
+      if (dt > 1000) {
+        t = performance.now();
+        ErrorMessageSpanElement.textContent = `Processing conversation ${this.index} of ${this.conversations.length}`;
+        ErrorMessageSpanElement.style.color = 'green';
+        // Allow the browser to update the UI.
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
     }
+    ErrorMessageSpanElement.textContent = 'Finished processing all conversations';
+    ErrorMessageSpanElement.style.color = 'green';
   }
 
   Progress () /*: number */ {
@@ -110,7 +131,7 @@ LoadHistoryElement.addEventListener('change', function (e) {
       if (!(arrayBuffer instanceof ArrayBuffer)) {
         throw new Error(`not an ArrayBuffer: ${typeof arrayBuffer}`);
       }
-      const conversations = new RawConversationIterator({ buffer: arrayBuffer });
+      const conversations = new AppConversationIterator({ buffer: arrayBuffer });
       window.chatgpt2GraphState.conversations = conversations;
       // Set the color to be green.
       LoadedIndicatorElement.style.backgroundColor = 'green';
@@ -119,9 +140,11 @@ LoadHistoryElement.addEventListener('change', function (e) {
     const files /*: FileList */ = e.target.files;
     reader.readAsArrayBuffer(files[0]);
     ErrorMessageSpanElement.innerHTML = '&nbsp;';
+    ErrorMessageSpanElement.style.color = 'black';
   } catch (err) {
     console.error(err);
     ErrorMessageSpanElement.textContent = err.message;
+    ErrorMessageSpanElement.style.color = 'red';
   }
 });
 
@@ -157,11 +180,15 @@ async function SVGToPNGURL ({ svg } /*: {svg: string} */) /*: Promise<string> */
 
 GenerateGraphButton.addEventListener('click', async function () {
   try {
+    ErrorMessageSpanElement.textContent = 'Starting processing all conversations';
+    ErrorMessageSpanElement.style.color = 'green';
+
     const words = WordsElement.value.split(',');
     const conversations = window.chatgpt2GraphState.conversations;
 
     if (!conversations) {
       ErrorMessageSpanElement.textContent = 'Conversations has not finished loading';
+      ErrorMessageSpanElement.style.color = 'red';
       return;
     }
     const { graph } = await MakeGraph({ words, conversations, intermediary: null });
@@ -182,14 +209,11 @@ GenerateGraphButton.addEventListener('click', async function () {
     GraphImageElement.src = svgURL;
 
     DownloadGraphAsSVGLink.href = svgURL;
-    DownloadGraphAsSVGLink.style.visibility = 'visible';
-
     DownloadGraphAsPNGLink.href = pngURL;
-    DownloadGraphAsPNGLink.style.visibility = 'visible';
-
-    ErrorMessageSpanElement.innerHTML = '&nbsp;';
+    DownloadLinksDiv.style.visibility = 'visible';
   } catch (err) {
     console.error(err);
     ErrorMessageSpanElement.textContent = err.message;
+    ErrorMessageSpanElement.style.color = 'red';
   }
 });
