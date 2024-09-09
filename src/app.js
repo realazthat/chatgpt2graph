@@ -194,7 +194,9 @@ GenerateGraphButton.addEventListener('click', async function () {
     ErrorMessageSpanElement.textContent = 'Starting processing all conversations';
     ErrorMessageSpanElement.style.color = 'green';
 
-    const words = WordsElement.value.split(',');
+    let words = WordsElement.value.split(',');
+    words = words.map(word => word.trim());
+    words = words.filter(word => word.length > 0);
     const conversations = window.chatgpt2GraphState.conversations;
 
     if (!conversations) {
