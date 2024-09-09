@@ -39,13 +39,13 @@ trap cleanup EXIT
 # ffmpeg -y -i .github/export-demo.webm -c:v libsvtav1 -pix_fmt yuv420p -crf 20 -tune 0 -r 5 -vf scale=512:512 .github/export-demo-mini.webm
 # ffmpeg -y -i .github/graph-demo.webm -c:v libsvtav1 -pix_fmt yuv420p -crf 20 -tune 0 -r 5 -vf scale=512:512 .github/graph-demo-mini.webm
 
-ffmpeg -i .github/graph-demo.webm \
-  -vf "fps=10,scale=512:-1:flags=lanczos,palettegen" \
-  "${TMPDIR}/palette.png"
-ffmpeg -i .github/graph-demo.webm -i "${TMPDIR}/palette.png" \
-  -filter_complex "fps=10,scale=512:-1:flags=lanczos[x];[x][1:v]paletteuse" \
-  "${TMPDIR}/graph-demo.gif"
-gifsicle -O3 "${TMPDIR}/graph-demo.gif" -o .github/graph-demo.gif
+# ffmpeg -i .github/graph-demo.webm \
+#   -vf "fps=10,scale=512:-1:flags=lanczos,palettegen" \
+#   "${TMPDIR}/palette.png"
+# ffmpeg -i .github/graph-demo.webm -i "${TMPDIR}/palette.png" \
+#   -filter_complex "fps=10,scale=512:-1:flags=lanczos[x];[x][1:v]paletteuse" \
+#   "${TMPDIR}/graph-demo.gif"
+# gifsicle -O3 "${TMPDIR}/graph-demo.gif" -o .github/graph-demo.gif
 
 npm run build
 
