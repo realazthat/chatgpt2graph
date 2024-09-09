@@ -69,7 +69,7 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 
 </div>
 
-<img src=".github/graph-demo.gif" alt="Demo" width="100%">
+<img src=".github/graph-demo.gif" alt="Demo" width="100%"/>
 
 - ❔ What: A web page (and CLI) to generate a graph from exported ChatGPT
   history.
