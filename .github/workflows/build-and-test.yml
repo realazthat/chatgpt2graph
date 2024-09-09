@@ -53,6 +53,7 @@ jobs:
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     - name: Run everything
       run: |
+        source "$HOME/.cargo/env"
         npm install -g npm@latest
         npm install
         bash scripts/pre.sh

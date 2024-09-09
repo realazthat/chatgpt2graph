@@ -11,7 +11,10 @@ trap cleanup EXIT
 ################################################################################
 bash scripts/utilities/install-basic.sh
 ################################################################################
-cargo install monolith
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"
+cargo install --git https://github.com/Y2Z/monolith.git --rev b6b358b3bceabecf2676dfa887e849ab2f550610
+monolith --version
 ################################################################################
 # For examples/tests:
 {%- set dev_dependencies=shell('python -m yq -r -c \'.dev | keys_unsorted | join(" ")\' .github/dependencies.yml', include_args=False)|trim -%}

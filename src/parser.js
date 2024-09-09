@@ -4,8 +4,6 @@ type YearWeek = [number, number];
 type YearWeekStr = string;
 type GraphData = Map<YearWeek, number>;
 */
-// For semistandard:
-/* global XMLSerializer */
 
 import * as dateFns from 'date-fns';
 // $FlowFixMe - Flow doesn't recognize `once` export correctly

@@ -15,7 +15,10 @@ trap cleanup EXIT
 ################################################################################
 bash scripts/utilities/install-basic.sh
 ################################################################################
-cargo install monolith
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+. "$HOME/.cargo/env"
+cargo install --git https://github.com/Y2Z/monolith.git --rev b6b358b3bceabecf2676dfa887e849ab2f550610
+monolith --version
 ################################################################################
 # For examples/tests:# See .github/dependencies.yml for the list of dependencies.
 sudo apt-get update && sudo apt-get install -y bash findutils grep xxd git xxhash rsync expect jq libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++ ffmpeg gifsicle
