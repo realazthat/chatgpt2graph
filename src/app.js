@@ -105,8 +105,8 @@ class AppConversationIterator extends ConversationIteratorInterface {
       yield this.conversations[this.index++];
 
       const dt = performance.now() - t;
-      // if a second has passed, update the progress
-      if (dt > 1000) {
+      // Every interval, update the UI with the current progress.
+      if (dt > 200) {
         t = performance.now();
         ErrorMessageSpanElement.textContent = `Processing conversation ${this.index} of ${this.conversations.length}`;
         ErrorMessageSpanElement.style.color = 'green';
