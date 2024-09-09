@@ -7,6 +7,12 @@ BLUE='\033[0;34m'
 GREEN='\033[0;32m'
 NC='\033[0m'
 
+TMPDIR=$(mktemp -d)
+function cleanup {
+  rm -rf "${TMPDIR}" || true
+}
+trap cleanup EXIT
+
 ################################################################################
 sudo apt update
 sudo apt install -y bash findutils grep xxd git xxhash rsync expect jq unzip \
@@ -47,7 +53,7 @@ fi
 NVM_DIR="${NVM_DIR:-"${HOME}/.nvm"}"
 # sourcing nvm.sh when .nvmrc is present can return an error with no message
 # (https://github.com/nvm-sh/nvm/issues/1985).
-rm .nvmrc || true
+cd ${TMPDIR}
 { set +x +v; } 2>/dev/null; [[ -s "${NVM_DIR}/nvm.sh" ]] && \. "${NVM_DIR}/nvm.sh"; set -x -v
 NVM_VERSION=$(nvm --version 2>/dev/null || true)
 

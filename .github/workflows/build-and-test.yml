@@ -35,6 +35,19 @@ jobs:
         GH_ACTION_UNIQUE_ID="${{ github.run_id }}-$MATRIX_HASH"
         echo "GH_ACTION_UNIQUE_ID=$GH_ACTION_UNIQUE_ID" >> $GITHUB_ENV
     - uses: actions/checkout@v4
+    # Install a specific version of Rust and Cargo
+    - name: Install specific Rust version
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: 1.81.0  # Specify the Rust version you want (Cargo comes bundled)
+        profile: minimal
+    - name: Cache Cargo registry
+      uses: actions/cache@v3
+      with:
+        path: ~/.cargo/registry
+        key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-registry-
     - name: Set up Node
       uses: actions/setup-node@v4
       with:
@@ -53,7 +66,6 @@ jobs:
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
     - name: Run everything
       run: |
-        source "$HOME/.cargo/env"
         npm install -g npm@latest
         npm install
         bash scripts/pre.sh
