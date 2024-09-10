@@ -130,7 +130,8 @@ And the resulting graph (svg):
 ```bash
 
 
-# Option 1: Download https://realazthat.github.io/chatgpt2graph/index.html to a local file and visit it:
+# Option 1: Download https://realazthat.github.io/chatgpt2graph/index.html to a
+# local file and visit it:
 wget -O chatgpt2graph.html https://realazthat.github.io/chatgpt2graph/
 # Open chatgpt2graph.html in your browser.
 # Note: This might not be the same version that in the git repo.
