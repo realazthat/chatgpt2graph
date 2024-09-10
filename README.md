@@ -92,7 +92,7 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 npm install -g chatgpt2graph
 
 # Option 2: Or install globally, direct from GitHub:
-npm install -g https://github.com/realazthat/chatgpt2graph.git#v0.1.0
+npm install -g https://github.com/realazthat/chatgpt2graph.git#v0.2.0
 
 # Option 3: Or install in a directory:
 git clone https://github.com/realazthat/chatgpt2graph
@@ -196,7 +196,7 @@ tag.
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/chatgpt2graph:v0.1.0 \
+  ghcr.io/realazthat/chatgpt2graph:v0.2.0 \
   -i ./examples/conversations.json \
   -w idiot \
   -o "./examples/simple_example_output.svg"
@@ -360,21 +360,21 @@ These instructions are for maintainers of the project.
 [14]:
   https://github.com/realazthat/chatgpt2graph/actions/workflows/build-and-test.yml
 [15]:
-  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.2.0/master?style=plastic
 [16]:
-  https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...master
+  https://github.com/realazthat/chatgpt2graph/compare/v0.2.0...master
 [17]:
   https://img.shields.io/github/last-commit/realazthat/chatgpt2graph/master?style=plastic
 [18]: https://github.com/realazthat/chatgpt2graph/tree/develop
 [19]:
   https://img.shields.io/github/actions/workflow/status/realazthat/chatgpt2graph/build-and-test.yml?branch=develop&style=plastic
 [20]:
-  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.2.0/develop?style=plastic
 [21]:
-  https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...develop
+  https://github.com/realazthat/chatgpt2graph/compare/v0.2.0...develop
 [22]:
-  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.2.0/develop?style=plastic
 [23]:
-  https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...develop
+  https://github.com/realazthat/chatgpt2graph/compare/v0.2.0...develop
 [24]:
   https://img.shields.io/github/last-commit/realazthat/chatgpt2graph/develop?style=plastic

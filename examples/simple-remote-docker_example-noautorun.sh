@@ -27,7 +27,7 @@ fi
 docker run --rm --tty \
   -u "$(id -u):$(id -g)" \
   -v "${PWD}:/data" \
-  ghcr.io/realazthat/chatgpt2graph:v0.1.0 \
+  ghcr.io/realazthat/chatgpt2graph:v0.2.0 \
   -i ./examples/conversations.json \
   -w idiot \
   -o "./examples/simple_example_output.svg"
