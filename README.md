@@ -34,8 +34,9 @@ Try: [realazthat.github.io/chatgpt2graph][2]
   <strong>
     <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
     <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#-command-line-options">💻CLI</a>
+    <a href="#-usage-local-cli">🚜💻CLI Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-usage-local-page">🚜🌐Local Page Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI Options</a>
   </strong>
 </p>
 <p align="center">
@@ -99,7 +100,7 @@ cd chatgpt2graph
 npm install
 ```
 
-## 🚜 Usage
+## 🚜💻 Usage: Local CLI
 
 Example:
 
@@ -124,18 +125,43 @@ And the resulting graph (svg):
 
 <img src="./examples/simple_example_output.svg" alt="Graph example output SVG" width="400" />
 
-## Running Page On Your Machine
+## 🚜🌐 Usage: Local Page
 
 ```bash
 
-# Option 1: In a directory installation, Start the development server (directory from the source code):
-npm run start
-# Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
 
-# Option 2: In a directory installation, Build first in dist/ and then serve:
+# Option 1: Download https://realazthat.github.io/chatgpt2graph/index.html to a local file and visit it:
+wget -O chatgpt2graph.html https://realazthat.github.io/chatgpt2graph/
+# Open chatgpt2graph.html in your browser.
+# Note: This might not be the same version that in the git repo.
+
+# Option 2: In a directory installation, Build first in dist/ and then visit the
+# page:
+git clone https://github.com/realazthat/chatgpt2graph/
+cd chatgpt2graph
+# Checkout develop if you want that branch.
+npm run build
+# Open dist/chatgpt2graph/index.html in your browser.
+# Note: This is most straight forward way to test the latest version from the
+# git repo.
+
+# Option 3: In a directory installation, Build first in dist/ and then serve:
+git clone https://github.com/realazthat/chatgpt2graph/
+# Checkout develop if you want that branch.
+cd chatgpt2graph
 npm run build
 npm run serve
 # Navigate to http://localhost:3000/chatgpt2graph/. Note the trailing slash!
+# This is the best way to test the site as if it were being served from GitHub
+# Pages, without actually deploying it.
+
+# Option 4: In a directory installation, Start the development server (directory
+# from the source code):
+git clone https://github.com/realazthat/chatgpt2graph/
+# Checkout develop if you want that branch.
+cd chatgpt2graph
+npm run start
+# Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
 
 ```
 
