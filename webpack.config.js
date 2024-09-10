@@ -4,6 +4,8 @@ import { fileURLToPath } from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import FaviconsWebpackPlugin
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -51,6 +53,18 @@ export default {
     //   algorithm: 'gzip',
     //   compressionOptions: { level: 9 },
     // }),
+    new FaviconsWebpackPlugin({
+      logo: './.github/favicon.svg',
+      cache: true,
+      inject: true,
+      favicons: {
+        appName: 'ChatGPT2Graph',
+        theme_color: '#333',
+        icons: {
+          favicons: true
+        }
+      }
+    }),
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'modular.html'
