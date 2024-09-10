@@ -219,7 +219,7 @@ class IntermediaryOutputInterface {
   }
 }
 
-async function MakeGraph ({ words, conversations, intermediary }/*: {words: Array<string>, conversations: ConversationIteratorInterface, intermediary: IntermediaryOutputInterface|null} */) /*: Promise<{conv: any, graph: GraphOutputInterface}> */ {
+async function ComputeGraph ({ words, conversations, intermediary }/*: {words: Array<string>, conversations: ConversationIteratorInterface, intermediary: IntermediaryOutputInterface|null} */) /*: Promise<{conv: any, graph: GraphOutputInterface}> */ {
   const week2Convs /*: Map<YearWeekStr, number> */ = new Map();
   const week2Frusts /*: Map<YearWeekStr, number> */= new Map();
   const week2FrustConvs /*: Map<YearWeekStr, number> */= new Map();
@@ -271,7 +271,7 @@ async function MakeGraph ({ words, conversations, intermediary }/*: {words: Arra
 }
 
 export {
-  MakeGraph,
+  ComputeGraph,
   GraphOutputInterface,
   IntermediaryOutputInterface,
   ConversationIteratorInterface

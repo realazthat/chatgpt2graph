@@ -14,7 +14,7 @@ import {
   // eslint-disable-next-line no-unused-vars
   GraphOutputInterface,
   IntermediaryOutputInterface,
-  MakeGraph
+  ComputeGraph
 } from './parser.js';
 import { version } from '../lib/version.js';
 const { JSDOM } = jsdom;
@@ -133,7 +133,7 @@ async function amain ({ options, logger } /*: {options: any, logger: any} */) {
     intermediaryDir,
     intermediaryFile
   });
-  const { graph } = await MakeGraph({
+  const { graph } = await ComputeGraph({
     words: words.split(','),
     conversations,
     intermediary

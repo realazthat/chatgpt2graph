@@ -13,7 +13,7 @@
 // https://github.com/parcel-bundler/parcel/issues/1762#issuecomment-763720624
 // https://github.com/parcel-bundler/parcel/issues/1762#issuecomment-1154349769
 import 'regenerator-runtime/runtime.js';
-import { ConversationIteratorInterface, MakeGraph } from './parser.js';
+import { ConversationIteratorInterface, ComputeGraph } from './parser.js';
 import { GraphStyle } from './graph.js';
 // Needed to webpack.
 import process from 'process';
@@ -123,7 +123,7 @@ class AppConversationIterator extends ConversationIteratorInterface {
   }
 }
 
-LoadHistoryElement.addEventListener('change', function (e) {
+LoadHistoryElement.addEventListener('change', function (e /*: Event */) {
   try {
     ErrorMessageSpanElement.textContent = 'Loading conversations';
     ErrorMessageSpanElement.style.color = 'green';
@@ -141,8 +141,7 @@ LoadHistoryElement.addEventListener('change', function (e) {
       if (!(arrayBuffer instanceof ArrayBuffer)) {
         throw new Error(`not an ArrayBuffer: ${typeof arrayBuffer}`);
       }
-      const conversations = new AppConversationIterator({ buffer: arrayBuffer });
-      window.chatgpt2GraphState.conversations = conversations;
+      window.chatgpt2GraphState.conversationsArrayBuffer = arrayBuffer;
       LoadedIndicatorElement.style.backgroundColor = 'green';
       ErrorMessageSpanElement.textContent = 'Finished loading conversations';
       ErrorMessageSpanElement.style.color = 'green';
@@ -197,14 +196,16 @@ GenerateGraphButton.addEventListener('click', async function () {
     let words = WordsElement.value.split(',');
     words = words.map(word => word.trim());
     words = words.filter(word => word.length > 0);
-    const conversations = window.chatgpt2GraphState.conversations;
+
+    const conversationsArrayBuffer /*: ArrayBuffer */ = window.chatgpt2GraphState.conversationsArrayBuffer;
+    const conversations = new AppConversationIterator({ buffer: conversationsArrayBuffer });
 
     if (!conversations) {
       ErrorMessageSpanElement.textContent = 'Conversations has not finished loading';
       ErrorMessageSpanElement.style.color = 'red';
       return;
     }
-    const { graph } = await MakeGraph({ words, conversations, intermediary: null });
+    const { graph } = await ComputeGraph({ words, conversations, intermediary: null });
 
     const graphStyle = new GraphStyle({
       margin: { top: 50, right: 50, bottom: 30, left: 50 },
