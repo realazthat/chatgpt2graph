@@ -35,6 +35,19 @@ jobs:
         GH_ACTION_UNIQUE_ID="${{ github.run_id }}-$MATRIX_HASH"
         echo "GH_ACTION_UNIQUE_ID=$GH_ACTION_UNIQUE_ID" >> $GITHUB_ENV
     - uses: actions/checkout@v4
+    # Install a specific version of Rust and Cargo
+    - name: Install specific Rust version
+      uses: actions-rs/toolchain@v1
+      with:
+        toolchain: 1.81.0  # Specify the Rust version you want (Cargo comes bundled)
+        profile: minimal
+    - name: Cache Cargo registry
+      uses: actions/cache@v3
+      with:
+        path: ~/.cargo/registry
+        key: ${{ runner.os }}-cargo-registry-${{ hashFiles('**/Cargo.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-cargo-registry-
     - name: Set up Node
       uses: actions/setup-node@v4
       with:
@@ -45,16 +58,9 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: 3.8.18
-    - name: Get Dependencies
-      run: |
-        sudo apt-get update && sudo apt-get install -y jq
-        pip install yq
-        APT_DEPS=$(python -m yq -r -c '.dev | keys | join(" ")' .github/dependencies.yml)
-        echo "APT_DEPS=${APT_DEPS}" >> $GITHUB_ENV
     - name: Install Dependencies (Ubuntu)
       run: |
-        # See project/.github/dependencies.yml for a list of dependencies.
-        sudo apt-get update && sudo apt-get install -y ${APT_DEPS}
+        bash scripts/install-reqs.sh
     # - name: Install nvm
     #   run: |
     #     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash

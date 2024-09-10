@@ -2,6 +2,10 @@ import webpack from 'webpack';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
+import TerserPlugin from 'terser-webpack-plugin';
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+// import FaviconsWebpackPlugin
+import FaviconsWebpackPlugin from 'favicons-webpack-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -9,7 +13,7 @@ const __dirname = dirname(__filename);
 export default {
   entry: './src/app.js', // Adjust according to your entry file
   output: {
-    filename: 'bundle.js',
+    filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist/chatgpt2graph'),
     publicPath: '/chatgpt2graph/', // Important for handling the base path
     clean: true // Clean the output directory before each build
@@ -36,13 +40,34 @@ export default {
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './src/index.html'
-
+    new BundleAnalyzerPlugin({
+      openAnalyzer: false, // Prevents the report from opening automatically
+      analyzerMode: 'static', // Generates a static HTML file instead of starting a server
+      defaultSizes: 'parsed' // Uses parsed sizes instead of gzip sizes for analysis
     }),
     new webpack.ProvidePlugin({
       process: 'process/browser',
       Buffer: ['buffer', 'Buffer']
+    }),
+    // new CompressionPlugin({
+    //   algorithm: 'gzip',
+    //   compressionOptions: { level: 9 },
+    // }),
+    new FaviconsWebpackPlugin({
+      logo: './.github/favicon.svg',
+      cache: true,
+      inject: true,
+      favicons: {
+        appName: 'ChatGPT2Graph',
+        theme_color: '#333',
+        icons: {
+          favicons: true
+        }
+      }
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/index.html',
+      filename: 'modular.html'
     })
   ],
   devServer: {
@@ -50,7 +75,7 @@ export default {
     historyApiFallback: true,
     port: 1234
   },
-  mode: 'development',
+  mode: 'production',
   resolve: {
     fallback: {
       buffer: 'buffer/',
@@ -68,5 +93,30 @@ export default {
       vm: 'vm-browserify',
       zlib: 'browserify-zlib'
     }
+  },
+  optimization: {
+    // splitChunks: {
+    //   chunks: 'all' // Splits vendor and common chunks
+    // },
+    minimize: true,
+    minimizer: [new TerserPlugin({
+      terserOptions: {
+        compress: {
+          // drop_console: true, // Removes console logs
+          passes: 3 // Number of passes for compressing
+          // pure_funcs: ['console.log'] // Removes specific functions like console.log
+        },
+        mangle: {
+          toplevel: true // Mangle top-level variable and function names
+        },
+        output: {
+          comments: false // Removes comments
+        },
+        keep_classnames: false, // Allows mangling of class names
+        keep_fnames: false, // Allows mangling of function names
+        toplevel: true // Enables more aggressive optimization at top-level scope
+      }
+    })
+    ]
   }
 };

@@ -2,6 +2,7 @@
 // @flow strict
 import fs from 'fs';
 import path from 'path';
+import jsdom from 'jsdom';
 
 import caporal from '@caporal/core';
 import StreamArray from 'stream-json/streamers/StreamArray.js';
@@ -13,13 +14,26 @@ import {
   // eslint-disable-next-line no-unused-vars
   GraphOutputInterface,
   IntermediaryOutputInterface,
-  MakeGraph
+  ComputeGraph
 } from './parser.js';
 import { version } from '../lib/version.js';
+const { JSDOM } = jsdom;
 
 const { Parser } = StreamJSON;
 const { streamArray } = StreamArray;
 const { program } = caporal;
+
+function MakeSVGElement ({ graphStyle }/*: {graphStyle: GraphStyle} */) /*: HTMLElement */ {
+  const { margin, wh } = graphStyle;
+  const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
+  const svg = dom.window.document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+  svg.setAttribute('width', wh.width + margin.left + margin.right);
+  svg.setAttribute('height', wh.height + margin.top + margin.bottom);
+
+  // Append the SVG element to the body
+  dom.window.document.body.appendChild(svg);
+  return svg;
+}
 
 class FileConversationIterator extends ConversationIteratorInterface {
   /*::
@@ -77,7 +91,8 @@ class FileIntermediaryOutput extends IntermediaryOutputInterface {
     const intermediaryDir = this.intermediaryDir;
 
     if (intermediaryFile) {
-      svg = await graph.SVG({ style: this.graphStyle });
+      const svgElement = MakeSVGElement({ graphStyle: this.graphStyle });
+      svg = await graph.SVG({ style: this.graphStyle, svgElement });
 
       const intermediaryFileDir = path.dirname(intermediaryFile);
       await fs.promises.mkdir(intermediaryFileDir, { recursive: true });
@@ -85,7 +100,8 @@ class FileIntermediaryOutput extends IntermediaryOutputInterface {
     }
     if (intermediaryDir) {
       if (!svg) {
-        svg = await graph.SVG({ style: this.graphStyle });
+        const svgElement = MakeSVGElement({ graphStyle: this.graphStyle });
+        svg = await graph.SVG({ style: this.graphStyle, svgElement });
       }
 
       await fs.promises.mkdir(intermediaryDir, { recursive: true });
@@ -96,8 +112,10 @@ class FileIntermediaryOutput extends IntermediaryOutputInterface {
 }
 
 async function amain ({ options, logger } /*: {options: any, logger: any} */) {
+  logger.info('options:', options);
+
   const words /*: string */ = options.words;
-  const conversationsPath /*: string */ = options.conversationsPath;
+  const input /*: string */ = options.input;
   const output /*: string */ = options.output;
   const intermediaryDir /*: string */ = options.intermediaryDir;
   const intermediaryFile /*: string */ = options.intermediaryFile;
@@ -109,13 +127,13 @@ async function amain ({ options, logger } /*: {options: any, logger: any} */) {
     url: 'https://realazthat.github.io/chatgpt2graph/'
   });
 
-  const conversations = new FileConversationIterator({ ConversationJSONPath: conversationsPath });
+  const conversations = new FileConversationIterator({ ConversationJSONPath: input });
   const intermediary = new FileIntermediaryOutput({
     graphStyle,
     intermediaryDir,
     intermediaryFile
   });
-  const { graph } = await MakeGraph({
+  const { graph } = await ComputeGraph({
     words: words.split(','),
     conversations,
     intermediary
@@ -124,7 +142,7 @@ async function amain ({ options, logger } /*: {options: any, logger: any} */) {
   // create the parent directory if it doesn't exist
   const graphDir = path.dirname(output);
   await fs.promises.mkdir(graphDir, { recursive: true });
-  await fs.promises.writeFile(output, await graph.SVG({ style: graphStyle }));
+  await fs.promises.writeFile(output, await graph.SVG({ style: graphStyle, svgElement: MakeSVGElement({ graphStyle }) }));
 }
 
 program
@@ -133,15 +151,15 @@ program
   .description(
     'Graph ChatGPT usage over time.'
   )
+  .option(
+    '-i, --input <input-path>',
+    'Path to conversations.js, which you can get from exporting your ChatGPT history via ChatGPT settings, downloading the zip file you get via email, and extracting the conversations.json file.',
+    { validator: program.STRING, required: true }
+  )
   .option('-w, --words <words>', 'A list of words to mark as frustrations, separated by commas.', {
     validator: program.STRING,
     required: true
   })
-  .option(
-    '--conversations-path <conversations-path>',
-    'Path to conversations.js, which you can get from exporting your ChatGPT history via ChatGPT settings, downloading the zip file you get via email, and extracting the conversations.json file.',
-    { validator: program.STRING, required: true }
-  )
   .option(
     '-o, --output <output>',
     'Path to the output SVG file.',

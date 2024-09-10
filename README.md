@@ -10,6 +10,7 @@ SOURCE: `.github/README.md.jinja2`.
 
 
 
+
 -->
 
 # <div align="center">[![ChatGPT2Graph][1]][2]</div>
@@ -33,8 +34,9 @@ Try: [realazthat.github.io/chatgpt2graph][2]
   <strong>
     <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
     <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#-command-line-options">💻CLI</a>
+    <a href="#-usage-local-cli">🚜💻CLI Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-usage-local-page">🚜🌐Local Page Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI Options</a>
   </strong>
 </p>
 <p align="center">
@@ -68,7 +70,7 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 
 </div>
 
-<img src=".github/graph-demo.gif" alt="Demo" width="100%">
+<img src=".github/graph-demo.gif" alt="Demo" width="100%"/>
 
 - ❔ What: A web page (and CLI) to generate a graph from exported ChatGPT
   history.
@@ -86,31 +88,81 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 ## 🏠 Installation
 
 ```bash
-# Install globally from npm registry.
+# Option 1: Install globally from npm registry:
 npm install -g chatgpt2graph
 
-# Or install globally, direct from GitHub:
-npm install -g https://github.com/realazthat/chatgpt2graph.git#v0.1.0
+# Option 2: Or install globally, direct from GitHub:
+npm install -g https://github.com/realazthat/chatgpt2graph.git#v0.2.0
+
+# Option 3: Or install in a directory:
+git clone https://github.com/realazthat/chatgpt2graph
+cd chatgpt2graph
+npm install
 ```
 
-## 🚜 Usage
+## 🚜💻 Usage: Local CLI
 
 Example:
 
-TODO
+<!---->
+```bash
 
-## Running Page Locally
+npx chatgpt2graph \
+  -i ./examples/conversations.json \
+  -w idiot \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
+
+<!---->
+<img src=".github/README.simple_example.log.svg" alt="Output of `bash ./examples/simple_example.sh`" />
+<!---->
+
+And the resulting graph (svg):
+
+<img src="./examples/simple_example_output.svg" alt="Graph example output SVG" width="400" />
+
+## 🚜🌐 Usage: Local Page
 
 ```bash
 
-npm install
-npm run start
-# Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
 
+# Option 1: Download https://realazthat.github.io/chatgpt2graph/index.html to a local file and visit it:
+wget -O chatgpt2graph.html https://realazthat.github.io/chatgpt2graph/
+# Open chatgpt2graph.html in your browser.
+# Note: This might not be the same version that in the git repo.
 
+# Option 2: In a directory installation, Build first in dist/ and then visit the
+# page:
+git clone https://github.com/realazthat/chatgpt2graph/
+cd chatgpt2graph
+# Checkout develop if you want that branch.
+npm run build
+# Open dist/chatgpt2graph/index.html in your browser.
+# Note: This is most straight forward way to test the latest version from the
+# git repo.
+
+# Option 3: In a directory installation, Build first in dist/ and then serve:
+git clone https://github.com/realazthat/chatgpt2graph/
+# Checkout develop if you want that branch.
+cd chatgpt2graph
 npm run build
 npm run serve
 # Navigate to http://localhost:3000/chatgpt2graph/. Note the trailing slash!
+# This is the best way to test the site as if it were being served from GitHub
+# Pages, without actually deploying it.
+
+# Option 4: In a directory installation, Start the development server (directory
+# from the source code):
+git clone https://github.com/realazthat/chatgpt2graph/
+# Checkout develop if you want that branch.
+cd chatgpt2graph
+npm run start
+# Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
+
 ```
 
 ## 💻 Command Line Options
@@ -125,10 +177,56 @@ npm run serve
   [./package.json](./package.json)). These versions were chosen from
   current supported and upcoming versions of node, from
   [Node.js: Previous Releases](https://nodejs.org/en/about/previous-releases).
+- Tested Node versions on GitHub Actions: `["18.20.2","20.12.1","21.7.3","22.0.0"]`.
 
 ### Tested on
 
 - WSL2 Ubuntu 20.04, Node `v20.12.1`.
+
+## 🐳 Docker Image
+
+Docker images are published to [ghcr.io/realazthat/chatgpt2graph][49] at each
+tag.
+
+<!---->
+```bash
+
+# Use the published images at ghcr.io/realazthat/snipinator.
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
+  -v "${PWD}:/data" \
+  ghcr.io/realazthat/chatgpt2graph:v0.2.0 \
+  -i ./examples/conversations.json \
+  -w idiot \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+<!---->
+```bash
+
+docker build -t my-chatgpt2graph-image .
+
+# /data in the docker image is the working directory, so paths are simpler.
+docker run --rm --tty \
+  -u "$(id -u):$(id -g)" \
+  -v "${PWD}:/data" \
+  my-chatgpt2graph-image \
+  -i ./examples/conversations.json \
+  -w idiot \
+  -o "./examples/simple_example_output.svg"
+
+ls "./examples/simple_example_output.svg"
+
+```
+<!---->
 
 ## 🤏 Versioning
 
@@ -167,6 +265,8 @@ This project is licensed under the MIT License - see the
     libgif-dev: For node canvas library.
     build-essential: For node canvas library.
     g++: For node canvas library.
+    ffmpeg: For compressing the demo videos for the web.
+    gifsicle: Optimizing demo videos.
     
     ```
 
@@ -189,19 +289,21 @@ This project is licensed under the MIT License - see the
 ### Commit Process
 
 1. (Optionally) Fork the `develop` branch.
-2. If the [.github/demo.gif](.github/demo.gif) will change, run
-   `bash ./scripts/generate-animation.sh`, this will generate a new
-   [.github/demo.gif](.github/demo.gif).
-   - Sanity-check the animation visually!
-   - Unfortunately, every run will make a unique gif, please don't stage this
-     file unless it changes due to some feature change or somesuch.
-3. Stage your files: e.g `git add path/to/file.py`.
-4. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
-5. `git status` check if anything changed (generated
+2. Stage your files: e.g `git add path/to/file.py`.
+3. `bash ./scripts/pre.sh`, this will format, lint, and test the code. If there
+   is an error then fix it and repeat this step.
+4. `git status` check if anything changed (generated
    [README.md](README.md) for example), if so, `git add` the changes,
    and go back to the previous step.
-6. `git commit -m "..."`.
-7. Make a PR to `develop` (or push to develop if you have the rights).
+5. `git commit` with an appropriately detailed commit message.
+6. Make a PR to `develop` (or push to develop if you have the rights).
+
+### Deplying to GH Pages
+
+This requires permissions in the remote repository.
+
+1. `npm run build` to build the site.
+2. `npm run deploy` to deploy the site to GitHub Pages.
 
 ## 🔄🚀 Release Process
 
@@ -222,7 +324,8 @@ These instructions are for maintainers of the project.
 5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
 6. Publish to NPM: Publish the release to NPM with
-   `bash ./scripts/deploy-to-npm.sh`.
+   `bash ./scripts/deploy-to-npm.sh`. This step requires an NPM account with
+   permissions to publish the package.
 7. Push to GitHub: Push the commit and tags to GitHub with
    `git push && git push --tags`.
 8. The `--no-ff` option adds a commit to the master branch for the merge, so
@@ -257,21 +360,21 @@ These instructions are for maintainers of the project.
 [14]:
   https://github.com/realazthat/chatgpt2graph/actions/workflows/build-and-test.yml
 [15]:
-  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/master?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.2.0/master?style=plastic
 [16]:
-  https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...master
+  https://github.com/realazthat/chatgpt2graph/compare/v0.2.0...master
 [17]:
   https://img.shields.io/github/last-commit/realazthat/chatgpt2graph/master?style=plastic
 [18]: https://github.com/realazthat/chatgpt2graph/tree/develop
 [19]:
   https://img.shields.io/github/actions/workflow/status/realazthat/chatgpt2graph/build-and-test.yml?branch=develop&style=plastic
 [20]:
-  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.2.0/develop?style=plastic
 [21]:
-  https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...develop
+  https://github.com/realazthat/chatgpt2graph/compare/v0.2.0...develop
 [22]:
-  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.1.0/develop?style=plastic
+  https://img.shields.io/github/commits-since/realazthat/chatgpt2graph/v0.2.0/develop?style=plastic
 [23]:
-  https://github.com/realazthat/chatgpt2graph/compare/v0.1.0...develop
+  https://github.com/realazthat/chatgpt2graph/compare/v0.2.0...develop
 [24]:
   https://img.shields.io/github/last-commit/realazthat/chatgpt2graph/develop?style=plastic

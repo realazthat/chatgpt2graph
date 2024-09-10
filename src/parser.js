@@ -3,16 +3,14 @@
 type YearWeek = [number, number];
 type YearWeekStr = string;
 type GraphData = Map<YearWeek, number>;
-
 */
+
 import * as dateFns from 'date-fns';
 // $FlowFixMe - Flow doesn't recognize `once` export correctly
 // import { once } from 'events';
-import jsdom from 'jsdom';
 
 // eslint-disable-next-line no-unused-vars
 import { GraphInfo, GraphStyle, DrawGraphToSVG } from './graph.js';
-const { JSDOM } = jsdom;
 
 function _Get (map /*: Map<YearWeekStr, number> */, key /*: YearWeekStr */) /*: number */ {
   if (typeof key !== 'string' && !(key instanceof String)) {
@@ -46,6 +44,23 @@ function _FromYearWeekStr (yearWeekStr /*: string */) /*: Date */ {
   return dateFns.parseISO(isoYW);
 }
 
+function SerializeSVG ({ svgElement } /*: {svgElement: Element} */) /*: string */ {
+  let svgOutput = svgElement.outerHTML;
+  svgOutput = svgOutput.replace(/<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+  svgOutput = `<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+${svgOutput}`;
+
+  return svgOutput;
+}
+
+// function SerializeSVG ({ svgElement } /*: {svgElement: Element} */) /*: string */ {
+//   const serializer = new XMLSerializer();
+//   const svgString = serializer.serializeToString(svgElement);
+//   // Add XML declaration
+//   return `<?xml version="1.0" encoding="utf-8"?>${svgString}`;
+// }
+
 class _GraphsHelper {
   /*::
   url: string|null;
@@ -59,27 +74,15 @@ class _GraphsHelper {
     this.plots.push(new GraphInfo({ name, x, y, ax }));
   }
 
-  async Draw ({ style } /*: {style: GraphStyle} */) /*: Promise<string> */ {
-    const { margin, wh, opaque } = style;
-    const dom = new JSDOM('<!DOCTYPE html><html><body></body></html>');
-    const svg = dom.window.document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', wh.width + margin.left + margin.right);
-    svg.setAttribute('height', wh.height + margin.top + margin.bottom);
-    if (opaque) {
-      svg.style.backgroundColor = 'white';
-    }
-
-    // Append the SVG element to the body
-    dom.window.document.body.appendChild(svg);
+  async Draw ({ style, svgElement } /*: {style: GraphStyle, svgElement: Element} */) /*: Promise<string> */ {
+    const { opaque } = style;
     const drawer = new DrawGraphToSVG();
 
-    drawer.Draw({ svg, graphs: this.plots, style });
-    let svgOutput = dom.window.document.body.innerHTML;
-    svgOutput = svgOutput.replace(/<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-    svgOutput = `<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-${svgOutput}`;
-    return svgOutput;
+    if (opaque) {
+      svgElement.style.backgroundColor = 'white';
+    }
+    drawer.Draw({ svg: svgElement, graphs: this.plots, style });
+    return SerializeSVG({ svgElement });
   }
 }
 
@@ -135,7 +138,7 @@ class ConversationIteratorInterface {
 }
 
 class GraphOutputInterface {
-  async SVG ({ style } /*: {style: GraphStyle} */)/*: Promise<string> */ {
+  async SVG ({ style, svgElement } /*: {style: GraphStyle, svgElement: Element } */)/*: Promise<string> */ {
     throw new Error('Unimplemented');
   }
 }
@@ -154,7 +157,7 @@ class GraphOutput extends GraphOutputInterface {
     this.week2FrustConvs = week2FrustConvs;
   }
 
-  async SVG ({ style } /*: {style: GraphStyle} */)/*: Promise<string> */ {
+  async SVG ({ style, svgElement } /*: {style: GraphStyle, svgElement: Element} */)/*: Promise<string> */ {
     const graphs_ = new _GraphsHelper();
     /// /////////////////////////////////////////////////////////////////////////
     let xYW /*: Array<YearWeekStr> */ = _SortByYearWeek(Array.from(this.week2Convs.keys()));
@@ -206,7 +209,7 @@ class GraphOutput extends GraphOutputInterface {
       });
     /// /////////////////////////////////////////////////////////////////////////
 
-    return await graphs_.Draw({ style });
+    return await graphs_.Draw({ style, svgElement });
   }
 }
 
@@ -216,7 +219,7 @@ class IntermediaryOutputInterface {
   }
 }
 
-async function MakeGraph ({ words, conversations, intermediary }/*: {words: Array<string>, conversations: ConversationIteratorInterface, intermediary: IntermediaryOutputInterface|null} */) /*: Promise<{conv: any, graph: GraphOutputInterface}> */ {
+async function ComputeGraph ({ words, conversations, intermediary }/*: {words: Array<string>, conversations: ConversationIteratorInterface, intermediary: IntermediaryOutputInterface|null} */) /*: Promise<{conv: any, graph: GraphOutputInterface}> */ {
   const week2Convs /*: Map<YearWeekStr, number> */ = new Map();
   const week2Frusts /*: Map<YearWeekStr, number> */= new Map();
   const week2FrustConvs /*: Map<YearWeekStr, number> */= new Map();
@@ -268,7 +271,7 @@ async function MakeGraph ({ words, conversations, intermediary }/*: {words: Arra
 }
 
 export {
-  MakeGraph,
+  ComputeGraph,
   GraphOutputInterface,
   IntermediaryOutputInterface,
   ConversationIteratorInterface

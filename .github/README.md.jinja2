@@ -5,6 +5,8 @@
 {% set last_unstable_release=last_stable_release %}
 {% set node_versions=shell("node -p \"require('./package.json').engines.node\"",
                                  include_args=False) | trim %}
+{% set tested_node_versions=shell('python -m yq -c \'.jobs["build-and-test"]["strategy"]["matrix"]["node-version"]\' .github/workflows/build-and-test.yml',
+                                 include_args=False) | trim %}
 {% set badge_color='0A1E1E' %}
 -->
 
@@ -29,8 +31,9 @@ Try: [realazthat.github.io/chatgpt2graph][2]
   <strong>
     <a href="#-features">🎇Features</a> &nbsp;&bull;&nbsp;
     <a href="#-installation">🏠Installation</a> &nbsp;&bull;&nbsp;
-    <a href="#-usage">🚜Usage</a> &nbsp;&bull;&nbsp;
-    <a href="#-command-line-options">💻CLI</a>
+    <a href="#-usage-local-cli">🚜💻CLI Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-usage-local-page">🚜🌐Local Page Usage</a> &nbsp;&bull;&nbsp;
+    <a href="#-command-line-options">💻CLI Options</a>
   </strong>
 </p>
 <p align="center">
@@ -64,7 +67,7 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 
 </div>
 
-<img src=".github/graph-demo.gif" alt="Demo" width="100%">
+<img src=".github/graph-demo.gif" alt="Demo" width="100%"/>
 
 - ❔ What: A web page (and CLI) to generate a graph from exported ChatGPT
   history.
@@ -82,31 +85,82 @@ Try: [realazthat.github.io/chatgpt2graph][2]
 ## 🏠 Installation
 
 ```bash
-# Install globally from npm registry.
+# Option 1: Install globally from npm registry:
 npm install -g {{project_name}}
 
-# Or install globally, direct from GitHub:
+# Option 2: Or install globally, direct from GitHub:
 npm install -g https://github.com/realazthat/{{project_name}}.git#v{{last_stable_release}}
+
+# Option 3: Or install in a directory:
+git clone https://github.com/realazthat/{{project_name}}
+cd {{project_name}}
+npm install
 ```
 
-## 🚜 Usage
+## 🚜💻 Usage: Local CLI
 
 Example:
 
-TODO
+<!--{{snippet('./examples/simple_example.sh',
+              start='# SNIPPET_START',
+              end='\n# SNIPPET_END',
+              backtickify='bash',
+              decomentify='nl')|trim}}-->
 
-## Running Page Locally
+<!--{{ shell('cat ./.github/simple_example.log',
+               start=': ECHO_SNIPPET_START',
+               end='^.*: ECHO_SNIPPET_END',
+               regex='MULTILINE',
+               rich='README.simple_example.log.svg',
+               rich_alt='Output of `bash ./examples/simple_example.sh`',
+               rich_bg_color='black',
+               rich_term='xterm-256color',
+               rich_cols=160,
+               include_args=False,
+               decomentify='nl') }}-->
+
+And the resulting graph (svg):
+
+<img src="./examples/simple_example_output.svg" alt="Graph example output SVG" width="400" />
+
+## 🚜🌐 Usage: Local Page
 
 ```bash
 
-npm install
-npm run start
-# Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
 
+# Option 1: Download https://realazthat.github.io/chatgpt2graph/index.html to a local file and visit it:
+wget -O chatgpt2graph.html https://realazthat.github.io/chatgpt2graph/
+# Open chatgpt2graph.html in your browser.
+# Note: This might not be the same version that in the git repo.
 
+# Option 2: In a directory installation, Build first in dist/ and then visit the
+# page:
+git clone https://github.com/realazthat/{{project_name}}/
+cd {{project_name}}
+# Checkout develop if you want that branch.
+npm run build
+# Open dist/chatgpt2graph/index.html in your browser.
+# Note: This is most straight forward way to test the latest version from the
+# git repo.
+
+# Option 3: In a directory installation, Build first in dist/ and then serve:
+git clone https://github.com/realazthat/{{project_name}}/
+# Checkout develop if you want that branch.
+cd {{project_name}}
 npm run build
 npm run serve
 # Navigate to http://localhost:3000/chatgpt2graph/. Note the trailing slash!
+# This is the best way to test the site as if it were being served from GitHub
+# Pages, without actually deploying it.
+
+# Option 4: In a directory installation, Start the development server (directory
+# from the source code):
+git clone https://github.com/realazthat/{{project_name}}/
+# Checkout develop if you want that branch.
+cd {{project_name}}
+npm run start
+# Navigate to http://localhost:1234/chatgpt2graph/. Note the trailing slash!
+
 ```
 
 ## 💻 Command Line Options
@@ -126,10 +180,31 @@ npm run serve
   {{path('./package.json', link='md')}}). These versions were chosen from
   current supported and upcoming versions of node, from
   [Node.js: Previous Releases](https://nodejs.org/en/about/previous-releases).
+- Tested Node versions on GitHub Actions: `{{ tested_node_versions }}`.
 
 ### Tested on
 
 - WSL2 Ubuntu 20.04, Node `{{rawsnippet('./.nvmrc')|trim}}`.
+
+## 🐳 Docker Image
+
+Docker images are published to [ghcr.io/realazthat/{{project_name}}][49] at each
+tag.
+
+<!--{{snippet('./examples/simple-remote-docker_example-noautorun.sh',
+              start='# SNIPPET_START',
+              end='\n# SNIPPET_END',
+              backtickify='bash',
+              decomentify='nl')|trim}}-->
+
+If you want to build the image yourself, you can use the Dockerfile in the
+repository.
+
+<!--{{snippet('./examples/simple-local-docker_example.sh',
+              start='# SNIPPET_START',
+              end='\n# SNIPPET_END',
+              backtickify='bash',
+              decomentify='nl')|trim}}-->
 
 ## 🤏 Versioning
 
@@ -174,19 +249,21 @@ This project is licensed under the MIT License - see the
 ### Commit Process
 
 1. (Optionally) Fork the `develop` branch.
-2. If the {{path('.github/demo.gif', link='md')}} will change, run
-   `bash ./scripts/generate-animation.sh`, this will generate a new
-   {{path('.github/demo.gif', link='md')}}.
-   - Sanity-check the animation visually!
-   - Unfortunately, every run will make a unique gif, please don't stage this
-     file unless it changes due to some feature change or somesuch.
-3. Stage your files: e.g `git add path/to/file.py`.
-4. `bash ./scripts/pre.sh`, this will format, lint, and test the code.
-5. `git status` check if anything changed (generated
+2. Stage your files: e.g `git add path/to/file.py`.
+3. `bash ./scripts/pre.sh`, this will format, lint, and test the code. If there
+   is an error then fix it and repeat this step.
+4. `git status` check if anything changed (generated
    {{path('README.md', link='md')}} for example), if so, `git add` the changes,
    and go back to the previous step.
-6. `git commit -m "..."`.
-7. Make a PR to `develop` (or push to develop if you have the rights).
+5. `git commit` with an appropriately detailed commit message.
+6. Make a PR to `develop` (or push to develop if you have the rights).
+
+### Deplying to GH Pages
+
+This requires permissions in the remote repository.
+
+1. `npm run build` to build the site.
+2. `npm run deploy` to deploy the site to GitHub Pages.
 
 ## 🔄🚀 Release Process
 
@@ -207,7 +284,8 @@ These instructions are for maintainers of the project.
 5. `master` branch: Tag the release: Create a git tag for the release with
    `git tag -a vX.Y.Z -m "Version X.Y.Z"`.
 6. Publish to NPM: Publish the release to NPM with
-   `bash ./scripts/deploy-to-npm.sh`.
+   `bash ./scripts/deploy-to-npm.sh`. This step requires an NPM account with
+   permissions to publish the package.
 7. Push to GitHub: Push the commit and tags to GitHub with
    `git push && git push --tags`.
 8. The `--no-ff` option adds a commit to the master branch for the merge, so

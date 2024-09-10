@@ -19,256 +19,258 @@ url(&quot;https://cdnjs.cloudflare.com/ajax/libs/firacode/6.2.0/woff/FiraCode-Bo
 font-style: bold;
 font-weight: 700;
 }
-.terminal-3970749332-matrix {
+.terminal-773314981-matrix {
 font-family: Fira Code, monospace;
 font-size: 20px;
 line-height: 24.4px;
 font-variant-east-asian: full-width;
 }
-.terminal-3970749332-title {
+.terminal-773314981-title {
 font-size: 18px;
 font-weight: bold;
 font-family: arial;
 }
-.terminal-3970749332-r1 { fill: #d9d9d9 }
-.terminal-3970749332-r2 { fill: #878787 }
-.terminal-3970749332-r3 { fill: #d9d9d9;font-weight: bold }
-.terminal-3970749332-r4 { fill: #569cd6 }
-.terminal-3970749332-r5 { fill: #98e024 }
+.terminal-773314981-r1 { fill: #d9d9d9 }
+.terminal-773314981-r2 { fill: #878787 }
+.terminal-773314981-r3 { fill: #d9d9d9;font-weight: bold }
+.terminal-773314981-r4 { fill: #569cd6 }
+.terminal-773314981-r5 { fill: #98e024 }
 </style>
 <defs>
-<clipPath id="terminal-3970749332-clip-terminal">
+<clipPath id="terminal-773314981-clip-terminal">
 <rect x="0" y="0" width="1951.0" height="853.0"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-0">
+<clipPath id="terminal-773314981-line-0">
 <rect x="0" y="1.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-1">
+<clipPath id="terminal-773314981-line-1">
 <rect x="0" y="25.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-2">
+<clipPath id="terminal-773314981-line-2">
 <rect x="0" y="50.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-3">
+<clipPath id="terminal-773314981-line-3">
 <rect x="0" y="74.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-4">
+<clipPath id="terminal-773314981-line-4">
 <rect x="0" y="99.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-5">
+<clipPath id="terminal-773314981-line-5">
 <rect x="0" y="123.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-6">
+<clipPath id="terminal-773314981-line-6">
 <rect x="0" y="147.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-7">
+<clipPath id="terminal-773314981-line-7">
 <rect x="0" y="172.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-8">
+<clipPath id="terminal-773314981-line-8">
 <rect x="0" y="196.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-9">
+<clipPath id="terminal-773314981-line-9">
 <rect x="0" y="221.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-10">
+<clipPath id="terminal-773314981-line-10">
 <rect x="0" y="245.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-11">
+<clipPath id="terminal-773314981-line-11">
 <rect x="0" y="269.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-12">
+<clipPath id="terminal-773314981-line-12">
 <rect x="0" y="294.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-13">
+<clipPath id="terminal-773314981-line-13">
 <rect x="0" y="318.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-14">
+<clipPath id="terminal-773314981-line-14">
 <rect x="0" y="343.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-15">
+<clipPath id="terminal-773314981-line-15">
 <rect x="0" y="367.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-16">
+<clipPath id="terminal-773314981-line-16">
 <rect x="0" y="391.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-17">
+<clipPath id="terminal-773314981-line-17">
 <rect x="0" y="416.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-18">
+<clipPath id="terminal-773314981-line-18">
 <rect x="0" y="440.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-19">
+<clipPath id="terminal-773314981-line-19">
 <rect x="0" y="465.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-20">
+<clipPath id="terminal-773314981-line-20">
 <rect x="0" y="489.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-21">
+<clipPath id="terminal-773314981-line-21">
 <rect x="0" y="513.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-22">
+<clipPath id="terminal-773314981-line-22">
 <rect x="0" y="538.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-23">
+<clipPath id="terminal-773314981-line-23">
 <rect x="0" y="562.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-24">
+<clipPath id="terminal-773314981-line-24">
 <rect x="0" y="587.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-25">
+<clipPath id="terminal-773314981-line-25">
 <rect x="0" y="611.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-26">
+<clipPath id="terminal-773314981-line-26">
 <rect x="0" y="635.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-27">
+<clipPath id="terminal-773314981-line-27">
 <rect x="0" y="660.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-28">
+<clipPath id="terminal-773314981-line-28">
 <rect x="0" y="684.7" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-29">
+<clipPath id="terminal-773314981-line-29">
 <rect x="0" y="709.1" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-30">
+<clipPath id="terminal-773314981-line-30">
 <rect x="0" y="733.5" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-31">
+<clipPath id="terminal-773314981-line-31">
 <rect x="0" y="757.9" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-32">
+<clipPath id="terminal-773314981-line-32">
 <rect x="0" y="782.3" width="1952" height="24.65"/>
 </clipPath>
-<clipPath id="terminal-3970749332-line-33">
+<clipPath id="terminal-773314981-line-33">
 <rect x="0" y="806.7" width="1952" height="24.65"/>
 </clipPath>
 </defs>
 <g transform="translate(9, 0)">
-<g class="terminal-3970749332-matrix">
-<text class="terminal-3970749332-r1" x="1952" y="20" textLength="12.2" clip-path="url(#terminal-3970749332-line-0)">
+<g class="terminal-773314981-matrix">
+<text class="terminal-773314981-r1" x="1952" y="20" textLength="12.2" clip-path="url(#terminal-773314981-line-0)">
 </text>
-<text class="terminal-3970749332-r1" x="0" y="44.4" textLength="292.8" clip-path="url(#terminal-3970749332-line-1)">  chatgpt2graph 0.1.0 — </text>
-<text class="terminal-3970749332-r2" x="292.8" y="44.4" textLength="366" clip-path="url(#terminal-3970749332-line-1)">Graph ChatGPT usage over time.</text>
-<text class="terminal-3970749332-r1" x="1952" y="44.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-1)">
+<text class="terminal-773314981-r1" x="0" y="44.4" textLength="292.8" clip-path="url(#terminal-773314981-line-1)">  chatgpt2graph 0.2.0 — </text>
+<text class="terminal-773314981-r2" x="292.8" y="44.4" textLength="366" clip-path="url(#terminal-773314981-line-1)">Graph ChatGPT usage over time.</text>
+<text class="terminal-773314981-r1" x="1952" y="44.4" textLength="12.2" clip-path="url(#terminal-773314981-line-1)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="68.8" textLength="12.2" clip-path="url(#terminal-3970749332-line-2)">
+<text class="terminal-773314981-r1" x="1952" y="68.8" textLength="12.2" clip-path="url(#terminal-773314981-line-2)">
 </text>
-<text class="terminal-3970749332-r3" x="24.4" y="93.2" textLength="61" clip-path="url(#terminal-3970749332-line-3)">USAGE</text>
-<text class="terminal-3970749332-r1" x="1952" y="93.2" textLength="12.2" clip-path="url(#terminal-3970749332-line-3)">
+<text class="terminal-773314981-r3" x="24.4" y="93.2" textLength="61" clip-path="url(#terminal-773314981-line-3)">USAGE</text>
+<text class="terminal-773314981-r1" x="1952" y="93.2" textLength="12.2" clip-path="url(#terminal-773314981-line-3)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="117.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-4)">
+<text class="terminal-773314981-r1" x="1952" y="117.6" textLength="12.2" clip-path="url(#terminal-773314981-line-4)">
 </text>
-<text class="terminal-3970749332-r2" x="48.8" y="142" textLength="12.2" clip-path="url(#terminal-3970749332-line-5)">▸</text>
-<text class="terminal-3970749332-r1" x="61" y="142" textLength="195.2" clip-path="url(#terminal-3970749332-line-5)"> chatgpt2graph  </text>
-<text class="terminal-3970749332-r4" x="256.2" y="142" textLength="146.4" clip-path="url(#terminal-3970749332-line-5)">&lt;OPTIONS...&gt;</text>
-<text class="terminal-3970749332-r1" x="1952" y="142" textLength="12.2" clip-path="url(#terminal-3970749332-line-5)">
+<text class="terminal-773314981-r2" x="48.8" y="142" textLength="12.2" clip-path="url(#terminal-773314981-line-5)">▸</text>
+<text class="terminal-773314981-r1" x="61" y="142" textLength="195.2" clip-path="url(#terminal-773314981-line-5)"> chatgpt2graph  </text>
+<text class="terminal-773314981-r4" x="256.2" y="142" textLength="146.4" clip-path="url(#terminal-773314981-line-5)">&lt;OPTIONS...&gt;</text>
+<text class="terminal-773314981-r1" x="1952" y="142" textLength="12.2" clip-path="url(#terminal-773314981-line-5)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="166.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-6)">
+<text class="terminal-773314981-r1" x="1952" y="166.4" textLength="12.2" clip-path="url(#terminal-773314981-line-6)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="190.8" textLength="12.2" clip-path="url(#terminal-3970749332-line-7)">
+<text class="terminal-773314981-r1" x="1952" y="190.8" textLength="12.2" clip-path="url(#terminal-773314981-line-7)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="215.2" textLength="12.2" clip-path="url(#terminal-3970749332-line-8)">
+<text class="terminal-773314981-r1" x="1952" y="215.2" textLength="12.2" clip-path="url(#terminal-773314981-line-8)">
 </text>
-<text class="terminal-3970749332-r3" x="24.4" y="239.6" textLength="85.4" clip-path="url(#terminal-3970749332-line-9)">OPTIONS</text>
-<text class="terminal-3970749332-r1" x="1952" y="239.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-9)">
+<text class="terminal-773314981-r3" x="24.4" y="239.6" textLength="85.4" clip-path="url(#terminal-773314981-line-9)">OPTIONS</text>
+<text class="terminal-773314981-r1" x="1952" y="239.6" textLength="12.2" clip-path="url(#terminal-773314981-line-9)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="264" textLength="12.2" clip-path="url(#terminal-3970749332-line-10)">
+<text class="terminal-773314981-r1" x="1952" y="264" textLength="12.2" clip-path="url(#terminal-773314981-line-10)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="288.4" textLength="256.2" clip-path="url(#terminal-3970749332-line-11)"> --conversations-path</text>
-<text class="terminal-3970749332-r4" x="305" y="288.4" textLength="866.2" clip-path="url(#terminal-3970749332-line-11)">&lt;conversations  Path to conversations.js, which you can get from       </text>
-<text class="terminal-3970749332-r1" x="1952" y="288.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-11)">
+<text class="terminal-773314981-r5" x="36.6" y="288.4" textLength="36.6" clip-path="url(#terminal-773314981-line-11)"> -i</text>
+<text class="terminal-773314981-r1" x="73.2" y="288.4" textLength="12.2" clip-path="url(#terminal-773314981-line-11)">,</text>
+<text class="terminal-773314981-r5" x="85.4" y="288.4" textLength="97.6" clip-path="url(#terminal-773314981-line-11)"> --input</text>
+<text class="terminal-773314981-r4" x="195.2" y="288.4" textLength="146.4" clip-path="url(#terminal-773314981-line-11)">&lt;input-path&gt;</text>
+<text class="terminal-773314981-r1" x="341.6" y="288.4" textLength="829.6" clip-path="url(#terminal-773314981-line-11)">             Path to conversations.js, which you can get from       </text>
+<text class="terminal-773314981-r1" x="1952" y="288.4" textLength="12.2" clip-path="url(#terminal-773314981-line-11)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="312.8" textLength="85.4" clip-path="url(#terminal-3970749332-line-12)"> -path&gt;</text>
-<text class="terminal-3970749332-r1" x="122" y="312.8" textLength="1049.2" clip-path="url(#terminal-3970749332-line-12)">                               exporting your ChatGPT history via ChatGPT settings,   </text>
-<text class="terminal-3970749332-r1" x="1952" y="312.8" textLength="12.2" clip-path="url(#terminal-3970749332-line-12)">
+<text class="terminal-773314981-r2" x="48.8" y="312.8" textLength="97.6" clip-path="url(#terminal-773314981-line-12)">required</text>
+<text class="terminal-773314981-r1" x="146.4" y="312.8" textLength="1024.8" clip-path="url(#terminal-773314981-line-12)">                             exporting your ChatGPT history via ChatGPT settings,   </text>
+<text class="terminal-773314981-r1" x="1952" y="312.8" textLength="12.2" clip-path="url(#terminal-773314981-line-12)">
 </text>
-<text class="terminal-3970749332-r2" x="48.8" y="337.2" textLength="97.6" clip-path="url(#terminal-3970749332-line-13)">required</text>
-<text class="terminal-3970749332-r1" x="146.4" y="337.2" textLength="1024.8" clip-path="url(#terminal-3970749332-line-13)">                             downloading the zip file you get via email, and        </text>
-<text class="terminal-3970749332-r1" x="1952" y="337.2" textLength="12.2" clip-path="url(#terminal-3970749332-line-13)">
+<text class="terminal-773314981-r1" x="0" y="337.2" textLength="1171.2" clip-path="url(#terminal-773314981-line-13)">                                         downloading the zip file you get via email, and        </text>
+<text class="terminal-773314981-r1" x="1952" y="337.2" textLength="12.2" clip-path="url(#terminal-773314981-line-13)">
 </text>
-<text class="terminal-3970749332-r1" x="0" y="361.6" textLength="1171.2" clip-path="url(#terminal-3970749332-line-14)">                                         extracting the conversations.json file.                </text>
-<text class="terminal-3970749332-r1" x="1952" y="361.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-14)">
+<text class="terminal-773314981-r1" x="0" y="361.6" textLength="1171.2" clip-path="url(#terminal-773314981-line-14)">                                         extracting the conversations.json file.                </text>
+<text class="terminal-773314981-r1" x="1952" y="361.6" textLength="12.2" clip-path="url(#terminal-773314981-line-14)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="386" textLength="231.8" clip-path="url(#terminal-3970749332-line-15)"> --intermediary-dir</text>
-<text class="terminal-3970749332-r4" x="280.6" y="386" textLength="890.6" clip-path="url(#terminal-3970749332-line-15)">&lt;intermediary-di  If set, this directory will be filled with intermediary</text>
-<text class="terminal-3970749332-r1" x="1952" y="386" textLength="12.2" clip-path="url(#terminal-3970749332-line-15)">
+<text class="terminal-773314981-r5" x="36.6" y="386" textLength="231.8" clip-path="url(#terminal-773314981-line-15)"> --intermediary-dir</text>
+<text class="terminal-773314981-r4" x="280.6" y="386" textLength="890.6" clip-path="url(#terminal-773314981-line-15)">&lt;intermediary-di  If set, this directory will be filled with intermediary</text>
+<text class="terminal-773314981-r1" x="1952" y="386" textLength="12.2" clip-path="url(#terminal-773314981-line-15)">
 </text>
-<text class="terminal-3970749332-r4" x="0" y="410.4" textLength="73.2" clip-path="url(#terminal-3970749332-line-16)">    r&gt;</text>
-<text class="terminal-3970749332-r1" x="73.2" y="410.4" textLength="1098" clip-path="url(#terminal-3970749332-line-16)">                                   SVG files.                                             </text>
-<text class="terminal-3970749332-r1" x="1952" y="410.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-16)">
+<text class="terminal-773314981-r4" x="0" y="410.4" textLength="73.2" clip-path="url(#terminal-773314981-line-16)">    r&gt;</text>
+<text class="terminal-773314981-r1" x="73.2" y="410.4" textLength="1098" clip-path="url(#terminal-773314981-line-16)">                                   SVG files.                                             </text>
+<text class="terminal-773314981-r1" x="1952" y="410.4" textLength="12.2" clip-path="url(#terminal-773314981-line-16)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="434.8" textLength="244" clip-path="url(#terminal-3970749332-line-17)"> --intermediary-file</text>
-<text class="terminal-3970749332-r4" x="292.8" y="434.8" textLength="878.4" clip-path="url(#terminal-3970749332-line-17)">&lt;intermediary-f  If set, this file will be filled with the final SVG.   </text>
-<text class="terminal-3970749332-r1" x="1952" y="434.8" textLength="12.2" clip-path="url(#terminal-3970749332-line-17)">
+<text class="terminal-773314981-r5" x="36.6" y="434.8" textLength="244" clip-path="url(#terminal-773314981-line-17)"> --intermediary-file</text>
+<text class="terminal-773314981-r4" x="292.8" y="434.8" textLength="878.4" clip-path="url(#terminal-773314981-line-17)">&lt;intermediary-f  If set, this file will be filled with the final SVG.   </text>
+<text class="terminal-773314981-r1" x="1952" y="434.8" textLength="12.2" clip-path="url(#terminal-773314981-line-17)">
 </text>
-<text class="terminal-3970749332-r4" x="0" y="459.2" textLength="97.6" clip-path="url(#terminal-3970749332-line-18)">    ile&gt;</text>
-<text class="terminal-3970749332-r1" x="1952" y="459.2" textLength="12.2" clip-path="url(#terminal-3970749332-line-18)">
+<text class="terminal-773314981-r4" x="0" y="459.2" textLength="97.6" clip-path="url(#terminal-773314981-line-18)">    ile&gt;</text>
+<text class="terminal-773314981-r1" x="1952" y="459.2" textLength="12.2" clip-path="url(#terminal-773314981-line-18)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="483.6" textLength="36.6" clip-path="url(#terminal-3970749332-line-19)"> -o</text>
-<text class="terminal-3970749332-r1" x="73.2" y="483.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-19)">,</text>
-<text class="terminal-3970749332-r5" x="85.4" y="483.6" textLength="109.8" clip-path="url(#terminal-3970749332-line-19)"> --output</text>
-<text class="terminal-3970749332-r4" x="207.4" y="483.6" textLength="97.6" clip-path="url(#terminal-3970749332-line-19)">&lt;output&gt;</text>
-<text class="terminal-3970749332-r1" x="305" y="483.6" textLength="866.2" clip-path="url(#terminal-3970749332-line-19)">                Path to the output SVG file.                           </text>
-<text class="terminal-3970749332-r1" x="1952" y="483.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-19)">
+<text class="terminal-773314981-r5" x="36.6" y="483.6" textLength="36.6" clip-path="url(#terminal-773314981-line-19)"> -o</text>
+<text class="terminal-773314981-r1" x="73.2" y="483.6" textLength="12.2" clip-path="url(#terminal-773314981-line-19)">,</text>
+<text class="terminal-773314981-r5" x="85.4" y="483.6" textLength="109.8" clip-path="url(#terminal-773314981-line-19)"> --output</text>
+<text class="terminal-773314981-r4" x="207.4" y="483.6" textLength="97.6" clip-path="url(#terminal-773314981-line-19)">&lt;output&gt;</text>
+<text class="terminal-773314981-r1" x="305" y="483.6" textLength="866.2" clip-path="url(#terminal-773314981-line-19)">                Path to the output SVG file.                           </text>
+<text class="terminal-773314981-r1" x="1952" y="483.6" textLength="12.2" clip-path="url(#terminal-773314981-line-19)">
 </text>
-<text class="terminal-3970749332-r2" x="48.8" y="508" textLength="97.6" clip-path="url(#terminal-3970749332-line-20)">required</text>
-<text class="terminal-3970749332-r1" x="1952" y="508" textLength="12.2" clip-path="url(#terminal-3970749332-line-20)">
+<text class="terminal-773314981-r2" x="48.8" y="508" textLength="97.6" clip-path="url(#terminal-773314981-line-20)">required</text>
+<text class="terminal-773314981-r1" x="1952" y="508" textLength="12.2" clip-path="url(#terminal-773314981-line-20)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="532.4" textLength="36.6" clip-path="url(#terminal-3970749332-line-21)"> -w</text>
-<text class="terminal-3970749332-r1" x="73.2" y="532.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-21)">,</text>
-<text class="terminal-3970749332-r5" x="85.4" y="532.4" textLength="97.6" clip-path="url(#terminal-3970749332-line-21)"> --words</text>
-<text class="terminal-3970749332-r4" x="195.2" y="532.4" textLength="85.4" clip-path="url(#terminal-3970749332-line-21)">&lt;words&gt;</text>
-<text class="terminal-3970749332-r1" x="280.6" y="532.4" textLength="890.6" clip-path="url(#terminal-3970749332-line-21)">                  A list of words to mark as frustrations, separated by  </text>
-<text class="terminal-3970749332-r1" x="1952" y="532.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-21)">
+<text class="terminal-773314981-r5" x="36.6" y="532.4" textLength="36.6" clip-path="url(#terminal-773314981-line-21)"> -w</text>
+<text class="terminal-773314981-r1" x="73.2" y="532.4" textLength="12.2" clip-path="url(#terminal-773314981-line-21)">,</text>
+<text class="terminal-773314981-r5" x="85.4" y="532.4" textLength="97.6" clip-path="url(#terminal-773314981-line-21)"> --words</text>
+<text class="terminal-773314981-r4" x="195.2" y="532.4" textLength="85.4" clip-path="url(#terminal-773314981-line-21)">&lt;words&gt;</text>
+<text class="terminal-773314981-r1" x="280.6" y="532.4" textLength="890.6" clip-path="url(#terminal-773314981-line-21)">                  A list of words to mark as frustrations, separated by  </text>
+<text class="terminal-773314981-r1" x="1952" y="532.4" textLength="12.2" clip-path="url(#terminal-773314981-line-21)">
 </text>
-<text class="terminal-3970749332-r2" x="48.8" y="556.8" textLength="97.6" clip-path="url(#terminal-3970749332-line-22)">required</text>
-<text class="terminal-3970749332-r1" x="146.4" y="556.8" textLength="1024.8" clip-path="url(#terminal-3970749332-line-22)">                             commas.                                                </text>
-<text class="terminal-3970749332-r1" x="1952" y="556.8" textLength="12.2" clip-path="url(#terminal-3970749332-line-22)">
+<text class="terminal-773314981-r2" x="48.8" y="556.8" textLength="97.6" clip-path="url(#terminal-773314981-line-22)">required</text>
+<text class="terminal-773314981-r1" x="146.4" y="556.8" textLength="1024.8" clip-path="url(#terminal-773314981-line-22)">                             commas.                                                </text>
+<text class="terminal-773314981-r1" x="1952" y="556.8" textLength="12.2" clip-path="url(#terminal-773314981-line-22)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="581.2" textLength="12.2" clip-path="url(#terminal-3970749332-line-23)">
+<text class="terminal-773314981-r1" x="1952" y="581.2" textLength="12.2" clip-path="url(#terminal-773314981-line-23)">
 </text>
-<text class="terminal-3970749332-r3" x="24.4" y="605.6" textLength="170.8" clip-path="url(#terminal-3970749332-line-24)">GLOBAL OPTIONS</text>
-<text class="terminal-3970749332-r1" x="1952" y="605.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-24)">
+<text class="terminal-773314981-r3" x="24.4" y="605.6" textLength="170.8" clip-path="url(#terminal-773314981-line-24)">GLOBAL OPTIONS</text>
+<text class="terminal-773314981-r1" x="1952" y="605.6" textLength="12.2" clip-path="url(#terminal-773314981-line-24)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="630" textLength="12.2" clip-path="url(#terminal-3970749332-line-25)">
+<text class="terminal-773314981-r1" x="1952" y="630" textLength="12.2" clip-path="url(#terminal-773314981-line-25)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="654.4" textLength="36.6" clip-path="url(#terminal-3970749332-line-26)"> -h</text>
-<text class="terminal-3970749332-r1" x="73.2" y="654.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-26)">,</text>
-<text class="terminal-3970749332-r5" x="85.4" y="654.4" textLength="85.4" clip-path="url(#terminal-3970749332-line-26)"> --help</text>
-<text class="terminal-3970749332-r1" x="170.8" y="654.4" textLength="1000.4" clip-path="url(#terminal-3970749332-line-26)">                           Display global help or command-related help.           </text>
-<text class="terminal-3970749332-r1" x="1952" y="654.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-26)">
+<text class="terminal-773314981-r5" x="36.6" y="654.4" textLength="36.6" clip-path="url(#terminal-773314981-line-26)"> -h</text>
+<text class="terminal-773314981-r1" x="73.2" y="654.4" textLength="12.2" clip-path="url(#terminal-773314981-line-26)">,</text>
+<text class="terminal-773314981-r5" x="85.4" y="654.4" textLength="85.4" clip-path="url(#terminal-773314981-line-26)"> --help</text>
+<text class="terminal-773314981-r1" x="170.8" y="654.4" textLength="1000.4" clip-path="url(#terminal-773314981-line-26)">                           Display global help or command-related help.           </text>
+<text class="terminal-773314981-r1" x="1952" y="654.4" textLength="12.2" clip-path="url(#terminal-773314981-line-26)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="678.8" textLength="36.6" clip-path="url(#terminal-3970749332-line-27)"> -V</text>
-<text class="terminal-3970749332-r1" x="73.2" y="678.8" textLength="12.2" clip-path="url(#terminal-3970749332-line-27)">,</text>
-<text class="terminal-3970749332-r5" x="85.4" y="678.8" textLength="122" clip-path="url(#terminal-3970749332-line-27)"> --version</text>
-<text class="terminal-3970749332-r1" x="207.4" y="678.8" textLength="963.8" clip-path="url(#terminal-3970749332-line-27)">                        Display version.                                       </text>
-<text class="terminal-3970749332-r1" x="1952" y="678.8" textLength="12.2" clip-path="url(#terminal-3970749332-line-27)">
+<text class="terminal-773314981-r5" x="36.6" y="678.8" textLength="36.6" clip-path="url(#terminal-773314981-line-27)"> -V</text>
+<text class="terminal-773314981-r1" x="73.2" y="678.8" textLength="12.2" clip-path="url(#terminal-773314981-line-27)">,</text>
+<text class="terminal-773314981-r5" x="85.4" y="678.8" textLength="122" clip-path="url(#terminal-773314981-line-27)"> --version</text>
+<text class="terminal-773314981-r1" x="207.4" y="678.8" textLength="963.8" clip-path="url(#terminal-773314981-line-27)">                        Display version.                                       </text>
+<text class="terminal-773314981-r1" x="1952" y="678.8" textLength="12.2" clip-path="url(#terminal-773314981-line-27)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="703.2" textLength="134.2" clip-path="url(#terminal-3970749332-line-28)"> --no-color</text>
-<text class="terminal-3970749332-r1" x="170.8" y="703.2" textLength="1000.4" clip-path="url(#terminal-3970749332-line-28)">                           Disable use of colors in output.                       </text>
-<text class="terminal-3970749332-r1" x="1952" y="703.2" textLength="12.2" clip-path="url(#terminal-3970749332-line-28)">
+<text class="terminal-773314981-r5" x="36.6" y="703.2" textLength="134.2" clip-path="url(#terminal-773314981-line-28)"> --no-color</text>
+<text class="terminal-773314981-r1" x="170.8" y="703.2" textLength="1000.4" clip-path="url(#terminal-773314981-line-28)">                           Disable use of colors in output.                       </text>
+<text class="terminal-773314981-r1" x="1952" y="703.2" textLength="12.2" clip-path="url(#terminal-773314981-line-28)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="727.6" textLength="36.6" clip-path="url(#terminal-3970749332-line-29)"> -v</text>
-<text class="terminal-3970749332-r1" x="73.2" y="727.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-29)">,</text>
-<text class="terminal-3970749332-r5" x="85.4" y="727.6" textLength="122" clip-path="url(#terminal-3970749332-line-29)"> --verbose</text>
-<text class="terminal-3970749332-r1" x="207.4" y="727.6" textLength="963.8" clip-path="url(#terminal-3970749332-line-29)">                        Verbose mode: will also output debug messages.         </text>
-<text class="terminal-3970749332-r1" x="1952" y="727.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-29)">
+<text class="terminal-773314981-r5" x="36.6" y="727.6" textLength="36.6" clip-path="url(#terminal-773314981-line-29)"> -v</text>
+<text class="terminal-773314981-r1" x="73.2" y="727.6" textLength="12.2" clip-path="url(#terminal-773314981-line-29)">,</text>
+<text class="terminal-773314981-r5" x="85.4" y="727.6" textLength="122" clip-path="url(#terminal-773314981-line-29)"> --verbose</text>
+<text class="terminal-773314981-r1" x="207.4" y="727.6" textLength="963.8" clip-path="url(#terminal-773314981-line-29)">                        Verbose mode: will also output debug messages.         </text>
+<text class="terminal-773314981-r1" x="1952" y="727.6" textLength="12.2" clip-path="url(#terminal-773314981-line-29)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="752" textLength="97.6" clip-path="url(#terminal-3970749332-line-30)"> --quiet</text>
-<text class="terminal-3970749332-r1" x="134.2" y="752" textLength="1037" clip-path="url(#terminal-3970749332-line-30)">                              Quiet mode - only displays warn and error messages.    </text>
-<text class="terminal-3970749332-r1" x="1952" y="752" textLength="12.2" clip-path="url(#terminal-3970749332-line-30)">
+<text class="terminal-773314981-r5" x="36.6" y="752" textLength="97.6" clip-path="url(#terminal-773314981-line-30)"> --quiet</text>
+<text class="terminal-773314981-r1" x="134.2" y="752" textLength="1037" clip-path="url(#terminal-773314981-line-30)">                              Quiet mode - only displays warn and error messages.    </text>
+<text class="terminal-773314981-r1" x="1952" y="752" textLength="12.2" clip-path="url(#terminal-773314981-line-30)">
 </text>
-<text class="terminal-3970749332-r5" x="36.6" y="776.4" textLength="109.8" clip-path="url(#terminal-3970749332-line-31)"> --silent</text>
-<text class="terminal-3970749332-r1" x="146.4" y="776.4" textLength="1024.8" clip-path="url(#terminal-3970749332-line-31)">                             Silent mode: does not output anything, giving no       </text>
-<text class="terminal-3970749332-r1" x="1952" y="776.4" textLength="12.2" clip-path="url(#terminal-3970749332-line-31)">
+<text class="terminal-773314981-r5" x="36.6" y="776.4" textLength="109.8" clip-path="url(#terminal-773314981-line-31)"> --silent</text>
+<text class="terminal-773314981-r1" x="146.4" y="776.4" textLength="1024.8" clip-path="url(#terminal-773314981-line-31)">                             Silent mode: does not output anything, giving no       </text>
+<text class="terminal-773314981-r1" x="1952" y="776.4" textLength="12.2" clip-path="url(#terminal-773314981-line-31)">
 </text>
-<text class="terminal-3970749332-r1" x="0" y="800.8" textLength="1171.2" clip-path="url(#terminal-3970749332-line-32)">                                         indication of success or failure other than the exit   </text>
-<text class="terminal-3970749332-r1" x="1952" y="800.8" textLength="12.2" clip-path="url(#terminal-3970749332-line-32)">
+<text class="terminal-773314981-r1" x="0" y="800.8" textLength="1171.2" clip-path="url(#terminal-773314981-line-32)">                                         indication of success or failure other than the exit   </text>
+<text class="terminal-773314981-r1" x="1952" y="800.8" textLength="12.2" clip-path="url(#terminal-773314981-line-32)">
 </text>
-<text class="terminal-3970749332-r1" x="0" y="825.2" textLength="1171.2" clip-path="url(#terminal-3970749332-line-33)">                                         code.                                                  </text>
-<text class="terminal-3970749332-r1" x="1952" y="825.2" textLength="12.2" clip-path="url(#terminal-3970749332-line-33)">
+<text class="terminal-773314981-r1" x="0" y="825.2" textLength="1171.2" clip-path="url(#terminal-773314981-line-33)">                                         code.                                                  </text>
+<text class="terminal-773314981-r1" x="1952" y="825.2" textLength="12.2" clip-path="url(#terminal-773314981-line-33)">
 </text>
-<text class="terminal-3970749332-r1" x="1952" y="849.6" textLength="12.2" clip-path="url(#terminal-3970749332-line-34)">
+<text class="terminal-773314981-r1" x="1952" y="849.6" textLength="12.2" clip-path="url(#terminal-773314981-line-34)">
 </text>
 </g>
 </g>

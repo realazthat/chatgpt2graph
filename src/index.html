@@ -85,14 +85,14 @@
         <div class="table-2cell">
           <div style="float: left; width: 45%;">
             <video autoplay loop muted playsinline controls
-              src="../.github/export-demo.webm"
+              src="../.github/export-demo-mini.webm"
               type="video/webm"
               style="width: 100%"></video>
             <div>ChatGPT History Export instructions</div>
           </div>
           <div style="float: right; width: 45%;">
             <video autoplay loop muted playsinline controls
-              src="../.github/graph-demo.webm"
+              src="../.github/graph-demo-mini.webm"
               type="video/webm"
               style="width: 100%"></video>
             <div>ChatGPT2Graph instructions</div>
@@ -114,7 +114,7 @@
             and the source code at
             <a href="https://github.com/realazthat/chatgpt2graph">github.com/realazthat/chatgpt2graph</a>).
             The loaded history is not uploaded anywhere. You can alternatively
-            choose to download the page and run it offline.
+            choose to download the page and run it offline, by saving this page and loading it in a browser.
           </div>
         </label>
         <input class="table-cell" id="load-history" type="file" accept=".json" style="margin: 10px; font-size: 1.5em;"/>
@@ -130,28 +130,22 @@
         <button class="table-2cell" id="generate-graph" style="font-size: 1.5em;">Generate Graph</button>
 
         <div class="table-2cell">
-          <a id="download-graph-svg" href="#" download="chatgpt2graph.svg"
-            style="font-size: 1.5em; visibility: hidden">Download Graph (SVG)</a>
-          &nbsp;|&nbsp;
-          <a id="download-graph-png" href="#" download="chatgpt2graph.png"
-            style="font-size: 1.5em; visibility: hidden">Download Graph (PNG)</a>
+          <div id="download-links-div" style="font-size: 1.5em; visibility: hidden">
+            <a id="download-graph-svg" href="#" download="chatgpt2graph.svg">Download Graph (SVG)</a>
+            &nbsp;|&nbsp;
+            <a id="download-graph-png" href="#" download="chatgpt2graph.png">Download Graph (PNG)</a>
+          </div>
         </div>
 
         <div class="table-2cell">
-          <img id="graph-image" style="width: 1024px; height: 512px;"/>
+          <img
+            id="graph-image"
+            style="width: 1024px; height: 512px;"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/wQAAwAB/0flh6YAAAAASUVORK5CYII" />
         </div>
       </div>
     </div>
 
-    <script src="app.js" type="module"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-NXGG4JQM73"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-
-      gtag('config', 'G-NXGG4JQM73');
-    </script>
     <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

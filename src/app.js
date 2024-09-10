@@ -7,12 +7,13 @@
 /* global HTMLButtonElement */
 /* global HTMLSpanElement */
 /* global HTMLAnchorElement */
+/* global HTMLDivElement */
 /* global Image */
 
 // https://github.com/parcel-bundler/parcel/issues/1762#issuecomment-763720624
 // https://github.com/parcel-bundler/parcel/issues/1762#issuecomment-1154349769
 import 'regenerator-runtime/runtime.js';
-import { ConversationIteratorInterface, MakeGraph } from './parser.js';
+import { ConversationIteratorInterface, ComputeGraph } from './parser.js';
 import { GraphStyle } from './graph.js';
 // Needed to webpack.
 import process from 'process';
@@ -65,6 +66,12 @@ if (!ErrorMessageSpanElement) { throw new Error('missing error message element')
 if (!(ErrorMessageSpanElement instanceof HTMLSpanElement)) {
   throw new Error('error message element is not an element');
 }
+const DownloadLinksDiv = document.getElementById('download-links-div');
+if (!DownloadLinksDiv) { throw new Error('missing download links div'); }
+if (!(DownloadLinksDiv instanceof HTMLDivElement)) {
+  throw new Error('download links div is not a div');
+}
+
 const DownloadGraphAsSVGLink = document.getElementById('download-graph-svg');
 if (!DownloadGraphAsSVGLink) { throw new Error('missing download graph as svg link'); }
 if (!(DownloadGraphAsSVGLink instanceof HTMLAnchorElement)) {
@@ -76,7 +83,7 @@ if (!(DownloadGraphAsPNGLink instanceof HTMLAnchorElement)) {
   throw new Error('download graph as png link is not an anchor');
 }
 
-class RawConversationIterator extends ConversationIteratorInterface {
+class AppConversationIterator extends ConversationIteratorInterface {
   /*::
   buffer: ArrayBuffer;
   processedSize: number;
@@ -92,9 +99,23 @@ class RawConversationIterator extends ConversationIteratorInterface {
   }
 
   async * Next () /*: AsyncGenerator<any, void, void> */ {
+    let t = 0;
+
     while (this.index < this.conversations.length) {
       yield this.conversations[this.index++];
+
+      const dt = performance.now() - t;
+      // Every interval, update the UI with the current progress.
+      if (dt > 200) {
+        t = performance.now();
+        ErrorMessageSpanElement.textContent = `Processing conversation ${this.index} of ${this.conversations.length}`;
+        ErrorMessageSpanElement.style.color = 'green';
+        // Allow the browser to update the UI.
+        await new Promise(resolve => setTimeout(resolve, 0));
+      }
     }
+    ErrorMessageSpanElement.textContent = 'Finished processing all conversations';
+    ErrorMessageSpanElement.style.color = 'green';
   }
 
   Progress () /*: number */ {
@@ -102,26 +123,38 @@ class RawConversationIterator extends ConversationIteratorInterface {
   }
 }
 
-LoadHistoryElement.addEventListener('change', function (e) {
+LoadHistoryElement.addEventListener('change', function (e /*: Event */) {
   try {
+    ErrorMessageSpanElement.textContent = 'Loading conversations';
+    ErrorMessageSpanElement.style.color = 'green';
+
     const reader = new FileReader();
     reader.onload = async function (event) {
+      if (event.target === null) {
+        throw new Error('event.target is null');
+      }
+
+      ErrorMessageSpanElement.textContent = 'Loaded File';
+      ErrorMessageSpanElement.style.color = 'green';
+
       const arrayBuffer = reader.result;
       if (!(arrayBuffer instanceof ArrayBuffer)) {
         throw new Error(`not an ArrayBuffer: ${typeof arrayBuffer}`);
       }
-      const conversations = new RawConversationIterator({ buffer: arrayBuffer });
-      window.chatgpt2GraphState.conversations = conversations;
-      // Set the color to be green.
+      window.chatgpt2GraphState.conversationsArrayBuffer = arrayBuffer;
       LoadedIndicatorElement.style.backgroundColor = 'green';
+      ErrorMessageSpanElement.textContent = 'Finished loading conversations';
+      ErrorMessageSpanElement.style.color = 'green';
     };
     // $FlowFixMe: `files` is missing in  `EventTarget`
     const files /*: FileList */ = e.target.files;
     reader.readAsArrayBuffer(files[0]);
-    ErrorMessageSpanElement.innerHTML = '&nbsp;';
+    ErrorMessageSpanElement.textContent = 'Loading file';
+    ErrorMessageSpanElement.style.color = 'green';
   } catch (err) {
     console.error(err);
     ErrorMessageSpanElement.textContent = err.message;
+    ErrorMessageSpanElement.style.color = 'red';
   }
 });
 
@@ -157,14 +190,22 @@ async function SVGToPNGURL ({ svg } /*: {svg: string} */) /*: Promise<string> */
 
 GenerateGraphButton.addEventListener('click', async function () {
   try {
-    const words = WordsElement.value.split(',');
-    const conversations = window.chatgpt2GraphState.conversations;
+    ErrorMessageSpanElement.textContent = 'Starting processing all conversations';
+    ErrorMessageSpanElement.style.color = 'green';
+
+    let words = WordsElement.value.split(',');
+    words = words.map(word => word.trim());
+    words = words.filter(word => word.length > 0);
+
+    const conversationsArrayBuffer /*: ArrayBuffer */ = window.chatgpt2GraphState.conversationsArrayBuffer;
+    const conversations = new AppConversationIterator({ buffer: conversationsArrayBuffer });
 
     if (!conversations) {
       ErrorMessageSpanElement.textContent = 'Conversations has not finished loading';
+      ErrorMessageSpanElement.style.color = 'red';
       return;
     }
-    const { graph } = await MakeGraph({ words, conversations, intermediary: null });
+    const { graph } = await ComputeGraph({ words, conversations, intermediary: null });
 
     const graphStyle = new GraphStyle({
       margin: { top: 50, right: 50, bottom: 30, left: 50 },
@@ -173,20 +214,20 @@ GenerateGraphButton.addEventListener('click', async function () {
       url: 'https://realazthat.github.io/chatgpt2graph/'
     });
 
-    const svg /*: string */= await graph.SVG({ style: graphStyle });
+    const svgElement = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svgElement.setAttributeNS('http://www.w3.org/2000/xmlns/', 'xmlns:xlink', 'http://www.w3.org/1999/xlink');
+
+    const svg /*: string */= await graph.SVG({ style: graphStyle, svgElement });
     const svgURL = `data:image/svg+xml,${encodeURIComponent(svg)}`;
     const pngURL = await SVGToPNGURL({ svg });
     GraphImageElement.src = svgURL;
 
     DownloadGraphAsSVGLink.href = svgURL;
-    DownloadGraphAsSVGLink.style.visibility = 'visible';
-
     DownloadGraphAsPNGLink.href = pngURL;
-    DownloadGraphAsPNGLink.style.visibility = 'visible';
-
-    ErrorMessageSpanElement.innerHTML = '&nbsp;';
+    DownloadLinksDiv.style.visibility = 'visible';
   } catch (err) {
     console.error(err);
     ErrorMessageSpanElement.textContent = err.message;
+    ErrorMessageSpanElement.style.color = 'red';
   }
 });
