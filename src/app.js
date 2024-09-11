@@ -198,13 +198,13 @@ GenerateGraphButton.addEventListener('click', async function () {
     words = words.filter(word => word.length > 0);
 
     const conversationsArrayBuffer /*: ArrayBuffer */ = window.chatgpt2GraphState.conversationsArrayBuffer;
-    const conversations = new AppConversationIterator({ buffer: conversationsArrayBuffer });
-
-    if (!conversations) {
+    if (!conversationsArrayBuffer) {
       ErrorMessageSpanElement.textContent = 'Conversations has not finished loading';
       ErrorMessageSpanElement.style.color = 'red';
       return;
     }
+    const conversations = new AppConversationIterator({ buffer: conversationsArrayBuffer });
+
     const { graph } = await ComputeGraph({ words, conversations, intermediary: null });
 
     const graphStyle = new GraphStyle({
